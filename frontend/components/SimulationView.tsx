@@ -1,6 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
 import {
+  Brain,
+  Zap,
+  TrendingUp,
+  Target,
+  ArrowLeft,
+  BarChart3,
+  Users,
+  Clock,
+  DollarSign,
+  CheckCircle,
+  AlertCircle,
+  Sparkles,
+} from "lucide-react";
+import {
   SimulationResult,
   VariantResult,
   IntakeData,
@@ -46,7 +60,6 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
       await new Promise((resolve) => setTimeout(resolve, 800));
     }
 
-    // Generate comprehensive mock data based on user input
     const mockData: SimulationResult = {
       role_title: generateRoleTitle(intakeData),
       summary: generateSummary(intakeData),
@@ -54,7 +67,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
       skill_gaps: generateSkillGaps(intakeData),
       action_stack: generateActionStack(intakeData),
       rationale: generateRationale(intakeData),
-      success_probability: Math.floor(Math.random() * 15) + 75, // 75-90%
+      success_probability: Math.floor(Math.random() * 15) + 75,
       estimated_salary_range: {
         min: 85000,
         max: 140000,
@@ -106,17 +119,21 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
     a.click();
     URL.revokeObjectURL(url);
 
-    // Show success notification
     showNotification(
-      "📋 Career plan exported successfully! Check your downloads folder."
+      "Career plan exported successfully! Check your downloads folder."
     );
   };
 
   const showNotification = (message: string) => {
     const notification = document.createElement("div");
     notification.className =
-      "fixed top-20 right-4 glass-card p-4 text-white z-50 neon-glow-blue animate-[slideInRight_0.5s_ease-out]";
-    notification.textContent = message;
+      "fixed top-20 right-4 glass-card p-4 text-white z-50 neon-glow-cyan animate-[slideInRight_0.5s_ease-out] flex items-center space-x-3";
+    notification.innerHTML = `
+      <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+      <span>${message}</span>
+    `;
     document.body.appendChild(notification);
     setTimeout(() => {
       notification.style.animation = "slideOutRight 0.5s ease-in both";
@@ -129,16 +146,16 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
   };
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
       <Navigation />
 
       {/* Hero Section */}
-      <div className="pt-24 pb-12 px-4">
+      <div className="pt-28 pb-12 px-4">
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl float-animation"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl float-animation"></div>
           <div
-            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-pink-500/10 to-red-500/10 rounded-full blur-3xl float-animation"
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl float-animation"
             style={{ animationDelay: "3s" }}
           ></div>
         </div>
@@ -146,61 +163,70 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
         <div className="relative max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-black font-['Orbitron'] text-gradient-primary mb-4">
-              Career <span className="text-white">Simulation</span> Results
+            <div className="inline-flex items-center px-4 py-2 rounded-full glass-card text-cyan-400 text-sm font-medium mb-6">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Career Simulation Results
+            </div>
+
+            <h1 className="text-5xl md:text-6xl font-black font-['Orbitron'] mb-4">
+              <span className="text-gradient-primary">Career</span>{" "}
+              <span className="text-gradient-accent">Simulation</span> Results
             </h1>
-            <p className="text-xl text-white/70 max-w-3xl mx-auto">
-              🔮 Your personalized journey through parallel career universes
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+              Your personalized journey through parallel career universes
             </p>
 
             {/* User profile summary */}
-            <div className="glass-card p-6 mt-8 max-w-4xl mx-auto">
+            <div className="glass-card p-6 mt-8 max-w-4xl mx-auto neon-glow-cyan">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
                 <div>
-                  <h4 className="text-blue-400 font-bold mb-2 flex items-center">
-                    <span className="mr-2">🛠️</span>Skills Portfolio
+                  <h4 className="text-cyan-400 font-bold mb-3 flex items-center">
+                    <Users className="w-4 h-4 mr-2" />
+                    Skills Portfolio
                   </h4>
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex flex-wrap gap-2">
                     {intakeData.skills.slice(0, 4).map((skill, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs border border-blue-500/30"
+                        className="px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded-lg text-xs border border-cyan-500/30"
                       >
                         {skill}
                       </span>
                     ))}
                     {intakeData.skills.length > 4 && (
-                      <span className="px-2 py-1 bg-gray-500/20 text-gray-300 rounded text-xs">
+                      <span className="px-2 py-1 bg-slate-600/30 text-slate-400 rounded-lg text-xs border border-slate-500/30">
                         +{intakeData.skills.length - 4} more
                       </span>
                     )}
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-purple-400 font-bold mb-2 flex items-center">
-                    <span className="mr-2">💡</span>Career Interests
+                  <h4 className="text-purple-400 font-bold mb-3 flex items-center">
+                    <Brain className="w-4 h-4 mr-2" />
+                    Career Interests
                   </h4>
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex flex-wrap gap-2">
                     {intakeData.interests.slice(0, 3).map((interest, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded text-xs border border-purple-500/30"
+                        className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded-lg text-xs border border-purple-500/30"
                       >
                         {interest}
                       </span>
                     ))}
                     {intakeData.interests.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-500/20 text-gray-300 rounded text-xs">
+                      <span className="px-2 py-1 bg-slate-600/30 text-slate-400 rounded-lg text-xs border border-slate-500/30">
                         +{intakeData.interests.length - 3} more
                       </span>
                     )}
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-orange-400 font-bold mb-2 flex items-center">
-                    <span className="mr-2">🦋</span>Butterfly Factor
+                  <h4 className="text-emerald-400 font-bold mb-3 flex items-center">
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Butterfly Factor
                   </h4>
-                  <p className="text-white/70 text-xs">
+                  <p className="text-slate-300 text-xs bg-slate-800/50 p-2 rounded-lg border border-slate-600/30">
                     {intakeData.oneChange || "No alternative path specified"}
                   </p>
                 </div>
@@ -214,11 +240,12 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
             <div>
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-black text-white flex items-center font-['Orbitron']">
-                  <span className="text-4xl mr-4">🎯</span>
+                  <Target className="w-8 h-8 mr-4 text-cyan-400" />
                   Primary Timeline
                 </h2>
                 {loading.baseline && (
-                  <div className="text-cyan-400 font-mono text-sm animate-pulse">
+                  <div className="text-cyan-400 font-mono text-sm animate-pulse flex items-center">
+                    <Brain className="w-4 h-4 mr-2 animate-spin" />
                     {loadingStage}
                   </div>
                 )}
@@ -227,22 +254,23 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
               {loading.baseline && (
                 <div className="text-center py-20">
                   <div className="relative mb-8">
-                    <div className="text-8xl animate-spin mb-4">🧠</div>
-                    <div className="absolute inset-0 text-8xl animate-ping opacity-20">
-                      🧠
+                    <Brain className="w-24 h-24 text-cyan-400 mx-auto animate-pulse mb-4" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-32 h-32 border-4 border-cyan-400/20 border-t-cyan-400 rounded-full animate-spin"></div>
                     </div>
                   </div>
                   <h3 className="text-white font-bold text-2xl mb-4">
                     AI Quantum Simulation in Progress
                   </h3>
-                  <p className="text-white/60 text-lg mb-6">{loadingStage}</p>
-                  <div className="max-w-md mx-auto bg-white/10 rounded-full h-3 overflow-hidden">
+                  <p className="text-slate-400 text-lg mb-6">{loadingStage}</p>
+                  <div className="max-w-md mx-auto bg-slate-800/50 rounded-full h-3 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-cyan-500 to-purple-500 h-3 rounded-full animate-pulse transition-all duration-1000"
+                      className="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full animate-pulse transition-all duration-1000"
                       style={{ width: "75%" }}
                     ></div>
                   </div>
-                  <p className="text-white/40 text-sm mt-4">
+                  <p className="text-slate-500 text-sm mt-4 flex items-center justify-center">
+                    <BarChart3 className="w-4 h-4 mr-2" />
                     Analyzing thousands of career data points...
                   </p>
                 </div>
@@ -253,33 +281,38 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                   {/* Role Summary Card */}
                   <div className="glass-card p-6 mb-8 neon-glow-cyan">
                     <div className="text-center mb-6">
-                      <h3 className="text-3xl font-black mb-2 text-gradient-accent">
+                      <h3 className="text-3xl font-black mb-4 text-gradient-accent">
                         {baseline.role_title}
                       </h3>
-                      <div className="flex justify-center items-center space-x-6 mb-4">
-                        <div className="text-center">
-                          <div className="text-2xl font-black text-green-400">
-                            {baseline.success_probability}%
+                      <div className="grid grid-cols-2 gap-6 mb-4">
+                        <div className="text-center glass-card p-4 bg-green-500/10 border border-green-500/20">
+                          <div className="flex items-center justify-center mb-2">
+                            <TrendingUp className="w-5 h-5 text-green-400 mr-2" />
+                            <div className="text-2xl font-black text-green-400">
+                              {baseline.success_probability}%
+                            </div>
                           </div>
-                          <div className="text-xs text-white/60">
-                            Success Rate
+                          <div className="text-xs text-slate-400">
+                            Success Probability
                           </div>
                         </div>
-                        <div className="w-px h-8 bg-white/20"></div>
-                        <div className="text-center">
-                          <div className="text-lg font-black text-green-400">
-                            $
-                            {baseline.estimated_salary_range.min.toLocaleString()}{" "}
-                            - $
-                            {baseline.estimated_salary_range.max.toLocaleString()}
+                        <div className="text-center glass-card p-4 bg-blue-500/10 border border-blue-500/20">
+                          <div className="flex items-center justify-center mb-2">
+                            <DollarSign className="w-5 h-5 text-blue-400 mr-2" />
+                            <div className="text-lg font-black text-blue-400">
+                              $
+                              {baseline.estimated_salary_range.min.toLocaleString()}{" "}
+                              - $
+                              {baseline.estimated_salary_range.max.toLocaleString()}
+                            </div>
                           </div>
-                          <div className="text-xs text-white/60">
+                          <div className="text-xs text-slate-400">
                             Salary Range
                           </div>
                         </div>
                       </div>
                     </div>
-                    <p className="text-white/80 leading-relaxed text-center">
+                    <p className="text-slate-300 leading-relaxed text-center bg-slate-800/30 p-4 rounded-lg border border-slate-600/20">
                       {baseline.summary}
                     </p>
                   </div>
@@ -298,10 +331,10 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
             <div>
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-black text-white flex items-center font-['Orbitron']">
-                  <span className="text-4xl mr-4 animate-pulse">🦋</span>
+                  <Sparkles className="w-8 h-8 mr-4 text-purple-400 animate-pulse" />
                   Butterfly Timeline
                   {intakeData.oneChange && (
-                    <span className="text-base ml-3 font-normal text-purple-300 font-mono max-w-xs truncate">
+                    <span className="text-sm ml-3 font-normal text-purple-300 font-mono max-w-xs truncate bg-purple-500/10 px-3 py-1 rounded-lg border border-purple-500/30">
                       &quot;{intakeData.oneChange}&quot;
                     </span>
                   )}
@@ -309,33 +342,30 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                 {intakeData.oneChange && !variant && !loading.variant && (
                   <button
                     onClick={simulateVariant}
-                    className="btn-secondary group relative overflow-hidden"
+                    className="btn-secondary group relative overflow-hidden flex items-center space-x-3"
                   >
-                    <div className="flex items-center space-x-3">
-                      <span className="text-2xl group-hover:animate-bounce">
-                        🔮
-                      </span>
-                      <span className="font-bold">Generate Butterfly</span>
-                    </div>
+                    <Zap className="w-5 h-5 group-hover:animate-spin" />
+                    <span className="font-bold">Generate Butterfly</span>
                   </button>
                 )}
               </div>
 
               {!intakeData.oneChange && (
                 <div className="text-center py-20 glass-card">
-                  <div className="text-8xl mb-6 opacity-30">🦋</div>
-                  <h3 className="text-white/60 font-bold text-xl mb-2">
+                  <Sparkles className="w-20 h-20 text-slate-600 mx-auto mb-6 opacity-50" />
+                  <h3 className="text-slate-400 font-bold text-xl mb-2">
                     No Butterfly Factor Specified
                   </h3>
-                  <p className="text-white/40">
+                  <p className="text-slate-500 mb-6">
                     Return to the intake form to add a &quot;one change&quot;
                     and explore alternative career paths
                   </p>
                   <button
                     onClick={() => window.history.back()}
-                    className="btn-primary mt-6"
+                    className="btn-primary flex items-center space-x-2 mx-auto"
                   >
-                    ← Back to Intake Form
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Back to Intake Form</span>
                   </button>
                 </div>
               )}
@@ -343,18 +373,18 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
               {loading.variant && (
                 <div className="text-center py-20">
                   <div className="relative mb-8">
-                    <div className="text-8xl animate-pulse mb-4">🦋</div>
-                    <div className="absolute inset-0 text-8xl animate-ping opacity-20">
-                      🦋
+                    <Sparkles className="w-24 h-24 text-purple-400 mx-auto animate-pulse mb-4" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-32 h-32 border-4 border-purple-400/20 border-t-purple-400 rounded-full animate-spin"></div>
                     </div>
                   </div>
                   <h3 className="text-white font-bold text-2xl mb-4">
                     Butterfly Effect Simulation
                   </h3>
                   <p className="text-purple-300 text-lg mb-6">{loadingStage}</p>
-                  <div className="max-w-md mx-auto bg-white/10 rounded-full h-3 overflow-hidden">
+                  <div className="max-w-md mx-auto bg-slate-800/50 rounded-full h-3 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full animate-pulse"
+                      className="bg-gradient-to-r from-purple-500 to-indigo-500 h-3 rounded-full animate-pulse"
                       style={{ width: "60%" }}
                     ></div>
                   </div>
@@ -364,42 +394,48 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
               {variant && (
                 <>
                   {/* Variant Summary Card */}
-                  <div className="glass-card p-6 mb-8 neon-glow-purple">
+                  <div className="glass-card p-6 mb-8 neon-glow-indigo">
                     <div className="text-center mb-6">
-                      <h3 className="text-3xl font-black mb-2 text-gradient-primary">
+                      <h3 className="text-3xl font-black mb-4 text-gradient-primary">
                         {variant.role_title}
                       </h3>
-                      <div className="flex justify-center items-center space-x-6 mb-4">
-                        <div className="text-center">
-                          <div className="text-2xl font-black text-purple-400">
-                            {variant.success_probability}%
+                      <div className="grid grid-cols-2 gap-6 mb-4">
+                        <div className="text-center glass-card p-4 bg-purple-500/10 border border-purple-500/20">
+                          <div className="flex items-center justify-center mb-2">
+                            <TrendingUp className="w-5 h-5 text-purple-400 mr-2" />
+                            <div className="text-2xl font-black text-purple-400">
+                              {variant.success_probability}%
+                            </div>
                           </div>
-                          <div className="text-xs text-white/60">
-                            Success Rate
+                          <div className="text-xs text-slate-400">
+                            Success Probability
                           </div>
                         </div>
-                        <div className="w-px h-8 bg-white/20"></div>
-                        <div className="text-center">
-                          <div className="text-lg font-black text-purple-400">
-                            $
-                            {variant.estimated_salary_range.min.toLocaleString()}{" "}
-                            - $
-                            {variant.estimated_salary_range.max.toLocaleString()}
+                        <div className="text-center glass-card p-4 bg-indigo-500/10 border border-indigo-500/20">
+                          <div className="flex items-center justify-center mb-2">
+                            <DollarSign className="w-5 h-5 text-indigo-400 mr-2" />
+                            <div className="text-lg font-black text-indigo-400">
+                              $
+                              {variant.estimated_salary_range.min.toLocaleString()}{" "}
+                              - $
+                              {variant.estimated_salary_range.max.toLocaleString()}
+                            </div>
                           </div>
-                          <div className="text-xs text-white/60">
+                          <div className="text-xs text-slate-400">
                             Salary Range
                           </div>
                         </div>
                       </div>
                     </div>
-                    <p className="text-white/80 leading-relaxed text-center mb-4">
+                    <p className="text-slate-300 leading-relaxed text-center mb-4 bg-slate-800/30 p-4 rounded-lg border border-slate-600/20">
                       {variant.summary}
                     </p>
 
                     {/* Comparison summary */}
-                    <div className="glass-card p-4 bg-orange-500/5 border border-orange-500/20">
+                    <div className="glass-card p-4 bg-orange-500/10 border border-orange-500/20">
                       <h4 className="text-orange-300 font-bold text-sm mb-2 flex items-center">
-                        <span className="mr-2">🔄</span>Impact Analysis
+                        <BarChart3 className="w-4 h-4 mr-2" />
+                        Impact Analysis
                       </h4>
                       <p className="text-orange-200 text-sm">
                         {variant.comparison_summary}
@@ -436,72 +472,77 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
             <div className="text-center mb-8">
               <button
                 onClick={() => setShowComparison(!showComparison)}
-                className="btn-primary"
+                className="btn-primary flex items-center space-x-2 mx-auto"
               >
-                {showComparison ? "Hide" : "Show"} Detailed Comparison
+                <BarChart3 className="w-5 h-5" />
+                <span>
+                  {showComparison ? "Hide" : "Show"} Detailed Comparison
+                </span>
               </button>
             </div>
           )}
 
           {/* Detailed Comparison */}
           {showComparison && baseline && variant && (
-            <div className="glass-card p-8 mb-12 neon-glow-pink">
-              <h3 className="text-3xl font-black text-white mb-6 text-center font-['Orbitron']">
-                <span className="text-4xl mr-3">⚖️</span>
+            <div className="glass-card p-8 mb-12 neon-glow-indigo">
+              <h3 className="text-3xl font-black text-white mb-6 text-center font-['Orbitron'] flex items-center justify-center">
+                <BarChart3 className="w-8 h-8 mr-4 text-indigo-400" />
                 Timeline Comparison Analysis
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="text-cyan-400 font-bold text-xl mb-4">
+                  <h4 className="text-cyan-400 font-bold text-xl mb-4 flex items-center">
+                    <Target className="w-5 h-5 mr-2" />
                     Primary Path Advantages
                   </h4>
-                  <ul className="space-y-2">
-                    <li className="flex items-start space-x-2">
-                      <span className="text-green-400">✓</span>
-                      <span className="text-white/80 text-sm">
+                  <div className="space-y-3">
+                    <div className="flex items-start space-x-3 p-3 glass-card bg-cyan-500/5 border border-cyan-500/20">
+                      <CheckCircle className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-slate-300 text-sm">
                         Faster market entry and income generation
                       </span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="text-green-400">✓</span>
-                      <span className="text-white/80 text-sm">
+                    </div>
+                    <div className="flex items-start space-x-3 p-3 glass-card bg-cyan-500/5 border border-cyan-500/20">
+                      <CheckCircle className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-slate-300 text-sm">
                         Lower risk and more predictable outcomes
                       </span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="text-green-400">✓</span>
-                      <span className="text-white/80 text-sm">
+                    </div>
+                    <div className="flex items-start space-x-3 p-3 glass-card bg-cyan-500/5 border border-cyan-500/20">
+                      <CheckCircle className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-slate-300 text-sm">
                         Builds on existing strengths and experience
                       </span>
-                    </li>
-                  </ul>
+                    </div>
+                  </div>
                 </div>
 
                 <div>
-                  <h4 className="text-purple-400 font-bold text-xl mb-4">
+                  <h4 className="text-purple-400 font-bold text-xl mb-4 flex items-center">
+                    <Sparkles className="w-5 h-5 mr-2" />
                     Butterfly Path Advantages
                   </h4>
-                  <ul className="space-y-2">
-                    <li className="flex items-start space-x-2">
-                      <span className="text-green-400">✓</span>
-                      <span className="text-white/80 text-sm">
+                  <div className="space-y-3">
+                    <div className="flex items-start space-x-3 p-3 glass-card bg-purple-500/5 border border-purple-500/20">
+                      <CheckCircle className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-slate-300 text-sm">
                         Higher ceiling for expertise and innovation
                       </span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="text-green-400">✓</span>
-                      <span className="text-white/80 text-sm">
+                    </div>
+                    <div className="flex items-start space-x-3 p-3 glass-card bg-purple-500/5 border border-purple-500/20">
+                      <CheckCircle className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-slate-300 text-sm">
                         Unique positioning in emerging markets
                       </span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="text-green-400">✓</span>
-                      <span className="text-white/80 text-sm">
+                    </div>
+                    <div className="flex items-start space-x-3 p-3 glass-card bg-purple-500/5 border border-purple-500/20">
+                      <CheckCircle className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-slate-300 text-sm">
                         Potential for breakthrough impact
                       </span>
-                    </li>
-                  </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
