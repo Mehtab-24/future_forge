@@ -63,8 +63,9 @@ export default function Home() {
                 AI-Powered Career Intelligence
               </div>
 
-              <h1 className="text-6xl md:text-8xl font-black font-['Orbitron'] text-gradient-primary leading-tight">
-                Future<span className="text-white">Forge</span>
+              <h1 className="text-6xl md:text-8xl font-black font-['Orbitron'] leading-tight">
+                <span className="text-gradient-primary">Future</span>
+                <span className="text-gradient-accent">Forge</span>
               </h1>
 
               <p className="text-2xl md:text-4xl text-slate-300 max-w-4xl mx-auto font-light leading-relaxed">
@@ -129,93 +130,101 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="feature-card text-center group">
-              <div className="text-5xl mb-6 pulse-glow">🧠</div>
-              <h3 className="text-2xl font-bold text-white mb-4">
-                AI Analysis Engine
-              </h3>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            {/* Feature 1 - AI Analysis */}
+            <div className="feature-card group neon-glow-cyan">
+              <div className="flex items-center mb-6">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 mr-4 group-hover:scale-110 transition-all duration-300">
+                  <Brain className="w-6 h-6 text-cyan-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white group-hover:text-gradient-cool transition-all duration-300">
+                  AI Analysis Engine
+                </h3>
+              </div>
+
+              <p className="text-slate-400 leading-relaxed mb-6">
                 Advanced Gemini AI analyzes your skills, interests, and
                 constraints to understand your unique professional profile and
                 market positioning.
               </p>
-              <ul className="text-sm text-slate-500 space-y-2 text-left">
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" /> Skill
-                  gap identification
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" /> Market
-                  trend analysis
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" />{" "}
-                  Probability calculations
-                </li>
-              </ul>
+
+              <div className="space-y-3">
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-cyan-400 mr-3 flex-shrink-0" />
+                  <span>Advanced skill gap identification</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-cyan-400 mr-3 flex-shrink-0" />
+                  <span>Real-time market trend analysis</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-cyan-400 mr-3 flex-shrink-0" />
+                  <span>Success probability calculations</span>
+                </div>
+              </div>
             </div>
 
-            {/* Feature 2 */}
-            <div className="feature-card text-center group">
-              <div
-                className="text-5xl mb-6 pulse-glow"
-                style={{ animationDelay: "1s" }}
-              >
-                🦋
+            {/* Feature 2 - Butterfly Effect */}
+            <div className="feature-card group neon-glow-indigo">
+              <div className="flex items-center mb-6">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500/20 to-indigo-500/20 border border-purple-500/30 mr-4 group-hover:scale-110 transition-all duration-300">
+                  <Zap className="w-6 h-6 text-purple-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white group-hover:text-gradient-primary transition-all duration-300">
+                  Butterfly Effect Simulation
+                </h3>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">
-                Butterfly Effect Simulation
-              </h3>
-              <p className="text-slate-400 leading-relaxed mb-4">
+
+              <p className="text-slate-400 leading-relaxed mb-6">
                 Explore how one key decision creates completely different career
                 universes. See parallel timelines and alternative outcomes.
               </p>
-              <ul className="text-sm text-slate-500 space-y-2 text-left">
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" />{" "}
-                  Alternative pathways
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" /> Impact
-                  analysis
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" /> Risk
-                  comparison
-                </li>
-              </ul>
+
+              <div className="space-y-3">
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-purple-400 mr-3 flex-shrink-0" />
+                  <span>Alternative pathway generation</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-purple-400 mr-3 flex-shrink-0" />
+                  <span>Decision impact analysis</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-purple-400 mr-3 flex-shrink-0" />
+                  <span>Risk vs reward comparison</span>
+                </div>
+              </div>
             </div>
 
-            {/* Feature 3 */}
-            <div className="feature-card text-center group">
-              <div
-                className="text-5xl mb-6 pulse-glow"
-                style={{ animationDelay: "2s" }}
-              >
-                🚀
+            {/* Feature 3 - Actionable Roadmaps */}
+            <div className="feature-card group neon-glow-cyan">
+              <div className="flex items-center mb-6">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 mr-4 group-hover:scale-110 transition-all duration-300">
+                  <TrendingUp className="w-6 h-6 text-emerald-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white group-hover:text-gradient-accent transition-all duration-300">
+                  Actionable Roadmaps
+                </h3>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">
-                Actionable Roadmaps
-              </h3>
-              <p className="text-slate-400 leading-relaxed mb-4">
+
+              <p className="text-slate-400 leading-relaxed mb-6">
                 Get detailed, prioritized action plans with courses, projects,
                 timelines, and cost estimates you can follow immediately.
               </p>
-              <ul className="text-sm text-slate-500 space-y-2 text-left">
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" />{" "}
-                  Priority stacking
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" /> Time
-                  estimates
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="w-3 h-3 text-cyan-400 mr-2" /> Cost
-                  breakdowns
-                </li>
-              </ul>
+
+              <div className="space-y-3">
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-emerald-400 mr-3 flex-shrink-0" />
+                  <span>Intelligent priority stacking</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-emerald-400 mr-3 flex-shrink-0" />
+                  <span>Realistic time estimates</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-300 p-2 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
+                  <CheckCircle className="w-4 h-4 text-emerald-400 mr-3 flex-shrink-0" />
+                  <span>Detailed cost breakdowns</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -418,9 +427,23 @@ export default function Home() {
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
               </button>
 
-              <p className="text-slate-500 text-sm">
-                ⚡ Instant results • 🎯 Personalized paths • 📋 Export ready •
-                🚀 Career transformation
+              <p className="text-slate-500 text-sm flex flex-wrap items-center justify-center gap-4">
+                <span className="flex items-center space-x-2">
+                  <Zap className="w-4 h-4 text-cyan-400" />
+                  <span>Instant results</span>
+                </span>
+                <span className="flex items-center space-x-2">
+                  <TrendingUp className="w-4 h-4 text-blue-400" />
+                  <span>Personalized paths</span>
+                </span>
+                <span className="flex items-center space-x-2">
+                  <Download className="w-4 h-4 text-purple-400" />
+                  <span>Export ready</span>
+                </span>
+                <span className="flex items-center space-x-2">
+                  <ArrowRight className="w-4 h-4 text-emerald-400" />
+                  <span>Career transformation</span>
+                </span>
               </p>
             </div>
           </div>
