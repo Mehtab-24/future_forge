@@ -28,7 +28,7 @@ export default function SimulationPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center pt-16">
         <div className="text-center">
           <div className="text-6xl animate-spin mb-4">⚡</div>
           <p className="text-white/60 text-xl">
