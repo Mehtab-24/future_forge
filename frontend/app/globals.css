@@ -2,32 +2,55 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap");
 
 :root {
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --dark-gradient: linear-gradient(
+  --primary-gradient: linear-gradient(
     135deg,
-    #0c0c0c 0%,
-    #1a1a2e 50%,
-    #16213e 100%
+    #0ea5e9 0%,
+    #3b82f6 50%,
+    #6366f1 100%
+  );
+  --secondary-gradient: linear-gradient(
+    135deg,
+    #06b6d4 0%,
+    #0891b2 50%,
+    #0e7490 100%
+  );
+  --accent-gradient: linear-gradient(
+    135deg,
+    #22d3ee 0%,
+    #06b6d4 50%,
+    #0284c7 100%
+  );
+  --background-gradient: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #1e293b 25%,
+    #334155 50%,
+    #475569 75%,
+    #64748b 100%
+  );
+  --card-gradient: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.8) 0%,
+    rgba(51, 65, 85, 0.6) 100%
   );
 }
 
 body {
   font-family: "Inter", system-ui, sans-serif;
-  background: var(--dark-gradient);
-  color: #ffffff;
+  background: var(--background-gradient);
+  color: #f8fafc;
+  line-height: 1.6;
 }
 
 @layer components {
-  /* Glass morphism cards */
+  /* Glass morphism cards with cool tones */
   .glass-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(30, 41, 59, 0.7);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.1);
     border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(148, 163, 184, 0.1);
   }
 
   .glass-card-hover {
@@ -35,13 +58,13 @@ body {
   }
 
   .glass-card-hover:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: rgba(30, 41, 59, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(148, 163, 184, 0.2);
   }
 
-  /* Gradient backgrounds */
+  /* Enhanced gradient backgrounds */
   .bg-primary-gradient {
     background: var(--primary-gradient);
   }
@@ -54,38 +77,45 @@ body {
     background: var(--accent-gradient);
   }
 
-  /* Text gradients */
+  /* Text gradients with cool tones */
   .text-gradient-primary {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6, #6366f1);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
   }
 
   .text-gradient-accent {
-    background: var(--accent-gradient);
+    background: linear-gradient(135deg, #22d3ee, #06b6d4, #0284c7);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
   }
 
-  /* Neon glow effects */
+  .text-gradient-cool {
+    background: linear-gradient(135deg, #67e8f9, #0ea5e9, #3b82f6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  /* Cool tone glow effects */
   .neon-glow-blue {
-    box-shadow: 0 0 5px #00f2fe, 0 0 10px #00f2fe, 0 0 15px #00f2fe,
-      0 0 20px #00f2fe;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.3),
+      0 0 20px rgba(34, 211, 238, 0.2), 0 0 30px rgba(34, 211, 238, 0.1);
   }
 
-  .neon-glow-purple {
-    box-shadow: 0 0 5px #764ba2, 0 0 10px #764ba2, 0 0 15px #764ba2,
-      0 0 20px #764ba2;
+  .neon-glow-cyan {
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.4), 0 0 20px rgba(6, 182, 212, 0.3),
+      0 0 30px rgba(6, 182, 212, 0.2);
   }
 
-  .neon-glow-pink {
-    box-shadow: 0 0 5px #f5576c, 0 0 10px #f5576c, 0 0 15px #f5576c,
-      0 0 20px #f5576c;
+  .neon-glow-indigo {
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.4),
+      0 0 20px rgba(99, 102, 241, 0.3), 0 0 30px rgba(99, 102, 241, 0.2);
   }
 
-  /* Buttons */
+  /* Enhanced buttons with cool colors */
   .btn-primary {
     background: var(--primary-gradient);
     border: none;
@@ -96,35 +126,37 @@ body {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
   }
 
   .btn-secondary {
-    background: var(--accent-gradient);
+    background: var(--secondary-gradient);
     border: none;
     border-radius: 15px;
     padding: 12px 30px;
     font-weight: 600;
     color: white;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
   }
 
   .btn-secondary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
   }
 
-  /* Form inputs */
+  /* Form inputs with cool styling */
   .input-futuristic {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.2);
     border-radius: 12px;
     padding: 16px 20px;
-    color: white;
+    color: #f8fafc;
     font-size: 16px;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
@@ -132,87 +164,105 @@ body {
 
   .input-futuristic:focus {
     outline: none;
-    border-color: #4facfe;
-    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+    background: rgba(30, 41, 59, 0.8);
   }
 
   .input-futuristic::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(148, 163, 184, 0.6);
   }
 
-  /* Navigation */
-  .nav-link {
-    position: relative;
-    padding: 10px 20px;
-    border-radius: 10px;
+  /* Section styling */
+  .section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .section-padding {
+    padding: 6rem 0;
+  }
+
+  /* Feature cards */
+  .feature-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
     transition: all 0.3s ease;
-    font-weight: 500;
   }
 
-  .nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-1px);
+  .feature-card:hover {
+    background: rgba(30, 41, 59, 0.8);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
 
-  .nav-link.active {
-    background: var(--accent-gradient);
-    color: white;
-  }
-
-  /* Loading animations */
-  .pulse-glow {
-    animation: pulseGlow 2s ease-in-out infinite alternate;
-  }
-
+  /* Floating animations */
   .float-animation {
     animation: floatAnimation 6s ease-in-out infinite;
   }
 
-  .rotate-slow {
-    animation: rotateSlow 20s linear infinite;
+  .pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite alternate;
   }
 }
 
-/* Keyframe animations */
-@keyframes pulseGlow {
-  from {
-    box-shadow: 0 0 20px rgba(79, 172, 254, 0.2);
-  }
-  to {
-    box-shadow: 0 0 30px rgba(79, 172, 254, 0.6);
-  }
-}
-
+/* Enhanced animations */
 @keyframes floatAnimation {
   0%,
   100% {
     transform: translateY(0px) rotate(0deg);
   }
   33% {
-    transform: translateY(-10px) rotate(1deg);
+    transform: translateY(-15px) rotate(1deg);
   }
   66% {
-    transform: translateY(5px) rotate(-1deg);
+    transform: translateY(8px) rotate(-1deg);
   }
 }
 
-@keyframes rotateSlow {
+@keyframes pulseGlow {
   from {
-    transform: rotate(0deg);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
   }
   to {
-    transform: rotate(360deg);
+    box-shadow: 0 0 40px rgba(34, 211, 238, 0.6),
+      0 0 60px rgba(34, 211, 238, 0.3);
   }
 }
 
-/* Custom scrollbar */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Custom scrollbar with cool colors */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(30, 41, 59, 0.3);
   border-radius: 10px;
 }
 
@@ -225,123 +275,30 @@ body {
   background: var(--primary-gradient);
 }
 
-/* Responsive design */
+/* Responsive improvements */
 @media (max-width: 768px) {
+  .section-padding {
+    padding: 4rem 0;
+  }
+
   .glass-card {
-    margin: 10px;
-    padding: 20px;
+    margin: 0.5rem;
+    padding: 1.5rem;
   }
 
   .btn-primary,
   .btn-secondary {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
-}
 
-/* Additional custom animations */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutRight {
-  to {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-}
-
-/* Responsive improvements */
-@media (max-width: 768px) {
-  .text-8xl {
-    font-size: 4rem;
-  }
   .text-6xl {
-    font-size: 3rem;
-  }
-  .text-5xl {
     font-size: 2.5rem;
   }
-}
-
-/* Enhanced navbar styles */
-.navbar-blur {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* Smooth navbar animations */
-.navbar-item-hover {
-  position: relative;
-  overflow: hidden;
-}
-
-.navbar-item-hover::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(79, 172, 254, 0.1),
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-.navbar-item-hover:hover::before {
-  left: 100%;
-}
-
-/* Fix for page content spacing */
-.page-content {
-  padding-top: 4rem; /* 64px for navbar height */
-}
-
-/* Enhanced mobile menu animations */
-@keyframes slideDown {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
+  .text-5xl {
+    font-size: 2rem;
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+  .text-4xl {
+    font-size: 1.75rem;
   }
-}
-
-.mobile-menu-item {
-  animation: slideDown 0.3s ease-out forwards;
-}
-
-/* Glow effects for active states */
-.nav-glow-active {
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.nav-glow-hover:hover {
-  box-shadow: 0 0 15px rgba(34, 211, 238, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
