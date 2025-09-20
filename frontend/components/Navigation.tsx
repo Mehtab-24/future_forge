@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Zap, Menu, X } from "lucide-react";
+import { Home, Zap, Menu, X, Target } from "lucide-react";
 import { NavigationItem } from "@/types/simulation";
 
 const navigationItems: NavigationItem[] = [
@@ -18,15 +18,22 @@ const navigationItems: NavigationItem[] = [
     icon: "zap",
     description: "View your career paths",
   },
+  {
+    name: "Action Plan",
+    href: "/action-stack",
+    icon: "target",
+    description: "Your personalized roadmap",
+  },
 ];
 
-// Icon mapping function
 const getIcon = (iconName: string, className: string = "w-5 h-5") => {
   switch (iconName) {
     case "home":
       return <Home className={className} />;
     case "zap":
       return <Zap className={className} />;
+    case "target":
+      return <Target className={className} />;
     default:
       return <Home className={className} />;
   }

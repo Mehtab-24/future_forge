@@ -6,6 +6,7 @@ import {
   TrendingUp,
   Target,
   ArrowLeft,
+  ArrowRight,
   BarChart3,
   Users,
   Clock,
@@ -13,6 +14,12 @@ import {
   CheckCircle,
   AlertCircle,
   Sparkles,
+  Award,
+  Briefcase,
+  PlayCircle,
+  GitBranch,
+  Calendar,
+  MapPin,
 } from "lucide-react";
 import {
   SimulationResult,
@@ -21,6 +28,8 @@ import {
   Timeline,
   ActionItem,
 } from "@/types/simulation";
+import { useRouter } from "next/navigation";
+
 import Navigation from "./Navigation";
 import TimelineCard from "./TimelineCard";
 import ActionStack from "./ActionStack";
@@ -30,6 +39,7 @@ interface SimulationViewProps {
 }
 
 export default function SimulationView({ intakeData }: SimulationViewProps) {
+  const router = useRouter();
   const [baseline, setBaseline] = useState<SimulationResult | null>(null);
   const [variant, setVariant] = useState<VariantResult | null>(null);
   const [loading, setLoading] = useState({ baseline: true, variant: false });
@@ -146,7 +156,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <Navigation />
 
       {/* Hero Section */}
@@ -165,70 +175,76 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
           <div className="text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 rounded-full glass-card text-cyan-400 text-sm font-medium mb-6">
               <BarChart3 className="w-4 h-4 mr-2" />
-              Career Simulation Results
+              AI-Powered Career Intelligence
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-black font-['Orbitron'] mb-4">
-              <span className="text-gradient-primary">Career</span>{" "}
-              <span className="text-gradient-accent">Simulation</span> Results
+            <h1 className="text-5xl md:text-6xl font-black font-['Orbitron'] mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              Career Simulation Results
             </h1>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Your personalized journey through parallel career universes
             </p>
 
-            {/* User profile summary */}
-            <div className="glass-card p-6 mt-8 max-w-4xl mx-auto neon-glow-cyan">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-                <div>
+            {/* Enhanced User Profile Summary */}
+            <div className="glass-card p-6 mt-8 max-w-5xl mx-auto neon-glow-cyan">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-4 border border-cyan-500/20">
                   <h4 className="text-cyan-400 font-bold mb-3 flex items-center">
-                    <Users className="w-4 h-4 mr-2" />
+                    <Briefcase className="w-5 h-5 mr-2" />
                     Skills Portfolio
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {intakeData.skills.slice(0, 4).map((skill, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded-lg text-xs border border-cyan-500/30"
+                        className="px-3 py-1 bg-cyan-500/20 text-cyan-200 rounded-full text-sm border border-cyan-500/30 flex items-center space-x-1"
                       >
-                        {skill}
+                        <CheckCircle className="w-3 h-3" />
+                        <span>{skill}</span>
                       </span>
                     ))}
                     {intakeData.skills.length > 4 && (
-                      <span className="px-2 py-1 bg-slate-600/30 text-slate-400 rounded-lg text-xs border border-slate-500/30">
+                      <span className="px-3 py-1 bg-slate-600/30 text-slate-300 rounded-full text-sm border border-slate-500/30">
                         +{intakeData.skills.length - 4} more
                       </span>
                     )}
                   </div>
                 </div>
-                <div>
+
+                <div className="bg-gradient-to-br from-purple-500/10 to-indigo-500/10 rounded-lg p-4 border border-purple-500/20">
                   <h4 className="text-purple-400 font-bold mb-3 flex items-center">
-                    <Brain className="w-4 h-4 mr-2" />
+                    <Brain className="w-5 h-5 mr-2" />
                     Career Interests
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {intakeData.interests.slice(0, 3).map((interest, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded-lg text-xs border border-purple-500/30"
+                        className="px-3 py-1 bg-purple-500/20 text-purple-200 rounded-full text-sm border border-purple-500/30 flex items-center space-x-1"
                       >
-                        {interest}
+                        <Target className="w-3 h-3" />
+                        <span>{interest}</span>
                       </span>
                     ))}
                     {intakeData.interests.length > 3 && (
-                      <span className="px-2 py-1 bg-slate-600/30 text-slate-400 rounded-lg text-xs border border-slate-500/30">
+                      <span className="px-3 py-1 bg-slate-600/30 text-slate-300 rounded-full text-sm border border-slate-500/30">
                         +{intakeData.interests.length - 3} more
                       </span>
                     )}
                   </div>
                 </div>
-                <div>
+
+                <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-lg p-4 border border-emerald-500/20">
                   <h4 className="text-emerald-400 font-bold mb-3 flex items-center">
-                    <Sparkles className="w-4 h-4 mr-2" />
+                    <GitBranch className="w-5 h-5 mr-2" />
                     Butterfly Factor
                   </h4>
-                  <p className="text-slate-300 text-xs bg-slate-800/50 p-2 rounded-lg border border-slate-600/30">
-                    {intakeData.oneChange || "No alternative path specified"}
-                  </p>
+                  <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-600/30">
+                    <p className="text-slate-200 text-sm flex items-center">
+                      <Sparkles className="w-4 h-4 mr-2 text-emerald-400" />
+                      {intakeData.oneChange || "No alternative path specified"}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -254,12 +270,13 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
               {loading.baseline && (
                 <div className="text-center py-20">
                   <div className="relative mb-8">
-                    <Brain className="w-24 h-24 text-cyan-400 mx-auto animate-pulse mb-4" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-32 h-32 border-4 border-cyan-400/20 border-t-cyan-400 rounded-full animate-spin"></div>
+                    <div className="w-24 h-24 mx-auto mb-6 relative">
+                      <Brain className="w-24 h-24 text-cyan-400 animate-pulse" />
+                      <div className="absolute inset-0 border-4 border-cyan-400/20 border-t-cyan-400 rounded-full animate-spin"></div>
                     </div>
                   </div>
-                  <h3 className="text-white font-bold text-2xl mb-4">
+                  <h3 className="text-white font-bold text-2xl mb-4 flex items-center justify-center">
+                    <Zap className="w-6 h-6 mr-2 text-cyan-400" />
                     AI Quantum Simulation in Progress
                   </h3>
                   <p className="text-slate-400 text-lg mb-6">{loadingStage}</p>
@@ -278,43 +295,51 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
 
               {baseline && (
                 <>
-                  {/* Role Summary Card */}
-                  <div className="glass-card p-6 mb-8 neon-glow-cyan">
+                  {/* Enhanced Role Summary Card */}
+                  <div className="glass-card p-6 mb-8 neon-glow-cyan bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20">
                     <div className="text-center mb-6">
-                      <h3 className="text-3xl font-black mb-4 text-gradient-accent">
-                        {baseline.role_title}
-                      </h3>
-                      <div className="grid grid-cols-2 gap-6 mb-4">
-                        <div className="text-center glass-card p-4 bg-green-500/10 border border-green-500/20">
+                      <div className="flex items-center justify-center mb-4">
+                        <Award className="w-8 h-8 text-cyan-400 mr-3" />
+                        <h3 className="text-3xl font-black text-gradient-accent">
+                          {baseline.role_title}
+                        </h3>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 mb-6">
+                        <div className="glass-card p-4 bg-green-500/10 border border-green-500/20">
                           <div className="flex items-center justify-center mb-2">
                             <TrendingUp className="w-5 h-5 text-green-400 mr-2" />
                             <div className="text-2xl font-black text-green-400">
                               {baseline.success_probability}%
                             </div>
                           </div>
-                          <div className="text-xs text-slate-400">
+                          <div className="text-xs text-slate-400 font-medium">
                             Success Probability
                           </div>
                         </div>
-                        <div className="text-center glass-card p-4 bg-blue-500/10 border border-blue-500/20">
+
+                        <div className="glass-card p-4 bg-blue-500/10 border border-blue-500/20">
                           <div className="flex items-center justify-center mb-2">
                             <DollarSign className="w-5 h-5 text-blue-400 mr-2" />
                             <div className="text-lg font-black text-blue-400">
                               $
-                              {baseline.estimated_salary_range.min.toLocaleString()}{" "}
-                              - $
+                              {baseline.estimated_salary_range.min.toLocaleString()}
+                              -$
                               {baseline.estimated_salary_range.max.toLocaleString()}
                             </div>
                           </div>
-                          <div className="text-xs text-slate-400">
+                          <div className="text-xs text-slate-400 font-medium">
                             Salary Range
                           </div>
                         </div>
                       </div>
                     </div>
-                    <p className="text-slate-300 leading-relaxed text-center bg-slate-800/30 p-4 rounded-lg border border-slate-600/20">
-                      {baseline.summary}
-                    </p>
+
+                    <div className="bg-slate-800/30 p-4 rounded-lg border border-slate-600/20">
+                      <p className="text-slate-300 leading-relaxed text-center">
+                        {baseline.summary}
+                      </p>
+                    </div>
                   </div>
 
                   {/* Timeline Cards */}
@@ -327,32 +352,49 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
               )}
             </div>
 
-            {/* Variant Column */}
+            {/* Butterfly Column with Better Layout */}
             <div>
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-3xl font-black text-white flex items-center font-['Orbitron']">
-                  <Sparkles className="w-8 h-8 mr-4 text-purple-400 animate-pulse" />
+              <div className="mb-8">
+                <h2 className="text-3xl font-black text-white flex items-center font-['Orbitron'] mb-8">
+                  <GitBranch className="w-8 h-8 mr-4 text-purple-400 animate-pulse" />
                   Butterfly Timeline
-                  {intakeData.oneChange && (
-                    <span className="text-sm ml-3 font-normal text-purple-300 font-mono max-w-xs truncate bg-purple-500/10 px-3 py-1 rounded-lg border border-purple-500/30">
-                      &quot;{intakeData.oneChange}&quot;
-                    </span>
-                  )}
                 </h2>
+
+                {/* Butterfly Factor Display - Now aligned with primary timeline card */}
+                {intakeData.oneChange && (
+                  <div className="glass-card p-6 mb-8 bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20 neon-glow-indigo">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <Sparkles className="w-6 h-6 text-purple-400 flex-shrink-0" />
+                      <h4 className="text-purple-300 font-bold text-lg font-['Orbitron']">
+                        BUTTERFLY EFFECT TRIGGER
+                      </h4>
+                    </div>
+                    <div className="bg-slate-800/30 p-4 rounded-lg border border-slate-600/20">
+                      <p className="text-slate-200 leading-relaxed">
+                        &quot;{intakeData.oneChange}&quot;
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {intakeData.oneChange && !variant && !loading.variant && (
                   <button
                     onClick={simulateVariant}
-                    className="btn-secondary group relative overflow-hidden flex items-center space-x-3"
+                    className="w-full rounded-2xl mb-6 transition-all duration-300 hover:scale-[1.02]"
                   >
-                    <Zap className="w-5 h-5 group-hover:animate-spin" />
-                    <span className="font-bold">Generate Butterfly</span>
+                    <div className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 px-6 py-4 rounded-2xl transition-all duration-300 flex items-center justify-center space-x-3 neon-glow-purple">
+                      <GitBranch className="w-5 h-5" />
+                      <span className="font-bold text-lg text-white">
+                        Generate Butterfly Timeline
+                      </span>
+                    </div>
                   </button>
                 )}
               </div>
 
               {!intakeData.oneChange && (
                 <div className="text-center py-20 glass-card">
-                  <Sparkles className="w-20 h-20 text-slate-600 mx-auto mb-6 opacity-50" />
+                  <GitBranch className="w-20 h-20 text-slate-600 mx-auto mb-6 opacity-50" />
                   <h3 className="text-slate-400 font-bold text-xl mb-2">
                     No Butterfly Factor Specified
                   </h3>
@@ -373,12 +415,13 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
               {loading.variant && (
                 <div className="text-center py-20">
                   <div className="relative mb-8">
-                    <Sparkles className="w-24 h-24 text-purple-400 mx-auto animate-pulse mb-4" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-32 h-32 border-4 border-purple-400/20 border-t-purple-400 rounded-full animate-spin"></div>
+                    <div className="w-24 h-24 mx-auto mb-6 relative">
+                      <GitBranch className="w-24 h-24 text-purple-400 animate-pulse" />
+                      <div className="absolute inset-0 border-4 border-purple-400/20 border-t-purple-400 rounded-full animate-spin"></div>
                     </div>
                   </div>
-                  <h3 className="text-white font-bold text-2xl mb-4">
+                  <h3 className="text-white font-bold text-2xl mb-4 flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 mr-2 text-purple-400" />
                     Butterfly Effect Simulation
                   </h3>
                   <p className="text-purple-300 text-lg mb-6">{loadingStage}</p>
@@ -393,45 +436,53 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
 
               {variant && (
                 <>
-                  {/* Variant Summary Card */}
-                  <div className="glass-card p-6 mb-8 neon-glow-indigo">
+                  {/* Enhanced Variant Summary Card */}
+                  <div className="glass-card p-6 mb-8 neon-glow-indigo bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
                     <div className="text-center mb-6">
-                      <h3 className="text-3xl font-black mb-4 text-gradient-primary">
-                        {variant.role_title}
-                      </h3>
-                      <div className="grid grid-cols-2 gap-6 mb-4">
-                        <div className="text-center glass-card p-4 bg-purple-500/10 border border-purple-500/20">
+                      <div className="flex items-center justify-center mb-4">
+                        <Award className="w-8 h-8 text-purple-400 mr-3" />
+                        <h3 className="text-3xl font-black text-gradient-primary">
+                          {variant.role_title}
+                        </h3>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 mb-6">
+                        <div className="glass-card p-4 bg-purple-500/10 border border-purple-500/20">
                           <div className="flex items-center justify-center mb-2">
                             <TrendingUp className="w-5 h-5 text-purple-400 mr-2" />
                             <div className="text-2xl font-black text-purple-400">
                               {variant.success_probability}%
                             </div>
                           </div>
-                          <div className="text-xs text-slate-400">
+                          <div className="text-xs text-slate-400 font-medium">
                             Success Probability
                           </div>
                         </div>
-                        <div className="text-center glass-card p-4 bg-indigo-500/10 border border-indigo-500/20">
+
+                        <div className="glass-card p-4 bg-indigo-500/10 border border-indigo-500/20">
                           <div className="flex items-center justify-center mb-2">
                             <DollarSign className="w-5 h-5 text-indigo-400 mr-2" />
                             <div className="text-lg font-black text-indigo-400">
                               $
-                              {variant.estimated_salary_range.min.toLocaleString()}{" "}
-                              - $
+                              {variant.estimated_salary_range.min.toLocaleString()}
+                              -$
                               {variant.estimated_salary_range.max.toLocaleString()}
                             </div>
                           </div>
-                          <div className="text-xs text-slate-400">
+                          <div className="text-xs text-slate-400 font-medium">
                             Salary Range
                           </div>
                         </div>
                       </div>
                     </div>
-                    <p className="text-slate-300 leading-relaxed text-center mb-4 bg-slate-800/30 p-4 rounded-lg border border-slate-600/20">
-                      {variant.summary}
-                    </p>
 
-                    {/* Comparison summary */}
+                    <div className="bg-slate-800/30 p-4 rounded-lg border border-slate-600/20 mb-4">
+                      <p className="text-slate-300 leading-relaxed text-center">
+                        {variant.summary}
+                      </p>
+                    </div>
+
+                    {/* Impact Analysis */}
                     <div className="glass-card p-4 bg-orange-500/10 border border-orange-500/20">
                       <h4 className="text-orange-300 font-bold text-sm mb-2 flex items-center">
                         <BarChart3 className="w-4 h-4 mr-2" />
@@ -467,24 +518,27 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
             </div>
           </div>
 
-          {/* Comparison Toggle */}
+          {/* Rest of the component remains the same... */}
+          {/* Comparison Toggle - Remove separate background */}
           {baseline && variant && (
             <div className="text-center mb-8">
               <button
                 onClick={() => setShowComparison(!showComparison)}
-                className="btn-primary flex items-center space-x-2 mx-auto"
+                className="transition-all duration-300 hover:scale-[1.02] rounded-2xl"
               >
-                <BarChart3 className="w-5 h-5" />
-                <span>
-                  {showComparison ? "Hide" : "Show"} Detailed Comparison
-                </span>
+                <div className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 px-8 py-4 rounded-2xl flex items-center space-x-3 neon-glow-cyan">
+                  <BarChart3 className="w-5 h-5 text-white" />
+                  <span className="font-bold text-lg text-white">
+                    {showComparison ? "Hide" : "Show"} Detailed Comparison
+                  </span>
+                </div>
               </button>
             </div>
           )}
 
-          {/* Detailed Comparison */}
+          {/* Enhanced Detailed Comparison */}
           {showComparison && baseline && variant && (
-            <div className="glass-card p-8 mb-12 neon-glow-indigo">
+            <div className="glass-card p-8 mb-12 neon-glow-indigo bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
               <h3 className="text-3xl font-black text-white mb-6 text-center font-['Orbitron'] flex items-center justify-center">
                 <BarChart3 className="w-8 h-8 mr-4 text-indigo-400" />
                 Timeline Comparison Analysis
@@ -497,21 +551,21 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                     Primary Path Advantages
                   </h4>
                   <div className="space-y-3">
-                    <div className="flex items-start space-x-3 p-3 glass-card bg-cyan-500/5 border border-cyan-500/20">
+                    <div className="flex items-start space-x-3 p-4 glass-card bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 transition-all">
                       <CheckCircle className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-300 text-sm">
+                      <span className="text-slate-300 text-sm leading-relaxed">
                         Faster market entry and income generation
                       </span>
                     </div>
-                    <div className="flex items-start space-x-3 p-3 glass-card bg-cyan-500/5 border border-cyan-500/20">
+                    <div className="flex items-start space-x-3 p-4 glass-card bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 transition-all">
                       <CheckCircle className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-300 text-sm">
+                      <span className="text-slate-300 text-sm leading-relaxed">
                         Lower risk and more predictable outcomes
                       </span>
                     </div>
-                    <div className="flex items-start space-x-3 p-3 glass-card bg-cyan-500/5 border border-cyan-500/20">
+                    <div className="flex items-start space-x-3 p-4 glass-card bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 transition-all">
                       <CheckCircle className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-300 text-sm">
+                      <span className="text-slate-300 text-sm leading-relaxed">
                         Builds on existing strengths and experience
                       </span>
                     </div>
@@ -520,25 +574,25 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
 
                 <div>
                   <h4 className="text-purple-400 font-bold text-xl mb-4 flex items-center">
-                    <Sparkles className="w-5 h-5 mr-2" />
+                    <GitBranch className="w-5 h-5 mr-2" />
                     Butterfly Path Advantages
                   </h4>
                   <div className="space-y-3">
-                    <div className="flex items-start space-x-3 p-3 glass-card bg-purple-500/5 border border-purple-500/20">
+                    <div className="flex items-start space-x-3 p-4 glass-card bg-purple-500/5 border border-purple-500/20 hover:bg-purple-500/10 transition-all">
                       <CheckCircle className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-300 text-sm">
+                      <span className="text-slate-300 text-sm leading-relaxed">
                         Higher ceiling for expertise and innovation
                       </span>
                     </div>
-                    <div className="flex items-start space-x-3 p-3 glass-card bg-purple-500/5 border border-purple-500/20">
+                    <div className="flex items-start space-x-3 p-4 glass-card bg-purple-500/5 border border-purple-500/20 hover:bg-purple-500/10 transition-all">
                       <CheckCircle className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-300 text-sm">
+                      <span className="text-slate-300 text-sm leading-relaxed">
                         Unique positioning in emerging markets
                       </span>
                     </div>
-                    <div className="flex items-start space-x-3 p-3 glass-card bg-purple-500/5 border border-purple-500/20">
+                    <div className="flex items-start space-x-3 p-4 glass-card bg-purple-500/5 border border-purple-500/20 hover:bg-purple-500/10 transition-all">
                       <CheckCircle className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-300 text-sm">
+                      <span className="text-slate-300 text-sm leading-relaxed">
                         Potential for breakthrough impact
                       </span>
                     </div>
@@ -548,12 +602,41 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
             </div>
           )}
 
-          {/* Action Stack */}
+          {/* Action Plan CTA - Replace ActionStack component */}
           {baseline && (
-            <ActionStack
-              actionStack={baseline.action_stack}
-              onExport={exportPlan}
-            />
+            <div className="text-center mt-16">
+              <div className="glass-card p-8 max-w-2xl mx-auto neon-glow-cyan bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20">
+                <h3 className="text-3xl font-black text-white mb-4 font-['Orbitron'] flex items-center justify-center">
+                  <Target className="w-8 h-8 mr-3 text-cyan-400" />
+                  Ready to Take Action?
+                </h3>
+                <p className="text-slate-400 mb-6 leading-relaxed">
+                  Your personalized action plan with{" "}
+                  {baseline.action_stack.length} priority items is ready. Get
+                  detailed timelines, resources, and step-by-step guidance.
+                </p>
+
+                <button
+                  onClick={() => {
+                    // Store simulation data for the action stack page
+                    sessionStorage.setItem(
+                      "simulationBaseline",
+                      JSON.stringify(baseline)
+                    );
+                    router.push("/action-stack");
+                  }}
+                  className="transition-all duration-300 hover:scale-[1.02] rounded-2xl group"
+                >
+                  <div className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 px-8 py-4 rounded-2xl flex items-center justify-center space-x-3 neon-glow-cyan">
+                    <Target className="w-5 h-5 text-white group-hover:animate-pulse" />
+                    <span className="font-bold text-lg text-white">
+                      View Your Action Plan
+                    </span>
+                    <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </button>
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -561,7 +644,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
   );
 }
 
-// Helper functions with proper typing
+// Helper functions remain the same as before
 function generateRoleTitle(intakeData: IntakeData): string {
   const aiInterests = intakeData.interests.some(
     (i) => i.toLowerCase().includes("ai") || i.toLowerCase().includes("ml")
