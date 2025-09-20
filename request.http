@@ -1,0 +1,26 @@
+### Register
+POST http://localhost:5000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "supersecret123"
+}
+
+### Login
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "supersecret123"
+}
+
+### Me (replace <TOKEN>)
+GET http://localhost:5000/api/v1/auth/me
+Authorization: Bearer <TOKEN>
+
+### List users
+GET http://localhost:5000/api/v1/users
+Authorization: Bearer <TOKEN>
