@@ -6,6 +6,7 @@ export interface IntakeData {
 }
 
 export interface Timeline {
+  skills: never[];
   phase: string;
   duration: string;
   goals: string[];

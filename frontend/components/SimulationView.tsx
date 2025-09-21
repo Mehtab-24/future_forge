@@ -20,6 +20,9 @@ import {
   GitBranch,
   Calendar,
   MapPin,
+  Video,
+  Download,
+  Loader2,
 } from "lucide-react";
 import {
   SimulationResult,
@@ -47,6 +50,42 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
     "Initializing quantum simulation..."
   );
   const [showComparison, setShowComparison] = useState(false);
+
+  const [generatingVideo, setGeneratingVideo] = useState(false);
+  const [careerVideoUrl, setCareerVideoUrl] = useState<string | null>(null);
+  const [videoError, setVideoError] = useState<string | null>(null);
+
+  const generateCareerVideo = async (roleTitle: string, skills: string[]) => {
+    setGeneratingVideo(true);
+    setVideoError(null);
+
+    try {
+      const response = await fetch("/api/generate-career-video", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          roleTitle: roleTitle,
+          skills: skills.slice(0, 3), // Top 3 skills
+          duration: 8,
+          style: "professional-cinematic",
+        }),
+      });
+
+      if (response.ok) {
+        const { videoUrl, status } = await response.json();
+        setCareerVideoUrl(videoUrl);
+      } else {
+        throw new Error("Video generation failed");
+      }
+    } catch (error) {
+      console.error("Video generation error:", error);
+      setVideoError("Failed to generate video. Please try again.");
+    } finally {
+      setGeneratingVideo(false);
+    }
+  };
 
   useEffect(() => {
     simulateBaseline();
@@ -603,6 +642,184 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
             </div>
           )}
 
+          {/* Career Journey Video Section - COLOR MATCHED */}
+          {baseline && (
+            <div className="mt-16 mb-12">
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-semibold mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                  🎬 Your Career Journey Visualization
+                </h3>
+                <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                  Watch an AI-generated video of your {baseline.role_title}{" "}
+                  career progression
+                </p>
+              </div>
+
+              <div className="max-w-4xl mx-auto">
+                <div className="glass-card p-8 neon-glow-cyan bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20">
+                  {!careerVideoUrl && !generatingVideo && !videoError && (
+                    <div className="text-center py-12">
+                      <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full mx-auto mb-6">
+                        <Video className="w-10 h-10 text-cyan-400" />
+                      </div>
+                      <h4 className="text-xl font-semibold text-white mb-3">
+                        Generate Your Career Journey Video
+                      </h4>
+                      <p className="text-slate-400 mb-6 max-w-md mx-auto">
+                        Create a cinematic AI-powered visualization of your
+                        career progression from junior to senior level
+                      </p>
+                      <button
+                        onClick={() =>
+                          generateCareerVideo(
+                            baseline.role_title,
+                            baseline.timeline[0]?.skills || []
+                          )
+                        }
+                        className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 rounded-xl text-white font-medium transition-all duration-200 flex items-center space-x-2 mx-auto neon-glow-cyan"
+                      >
+                        <Video className="w-5 h-5" />
+                        <span> Generate AI Video</span>
+                      </button>
+                      <div className="flex items-center justify-center space-x-6 mt-6 text-sm text-slate-500">
+                        <div className="flex items-center space-x-1">
+                          <Sparkles className="w-4 h-4 text-cyan-400" />
+                          <span>Powered by Google Veo</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Clock className="w-4 h-4 text-blue-400" />
+                          <span>~30 seconds</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Video className="w-4 h-4 text-cyan-400" />
+                          <span>8-second cinematic</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {generatingVideo && (
+                    <div className="text-center py-16">
+                      <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full mx-auto mb-6">
+                        <Loader2 className="w-10 h-10 text-cyan-400 animate-spin" />
+                      </div>
+                      <h4 className="text-xl font-semibold text-white mb-3">
+                        🎬 Generating Your Career Video...
+                      </h4>
+                      <p className="text-slate-400 mb-4">
+                        AI is creating a cinematic visualization of your career
+                        journey
+                      </p>
+                      <div className="w-64 h-2 bg-slate-700 rounded-full mx-auto overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse"></div>
+                      </div>
+                      <div className="mt-6 space-y-2 text-sm text-slate-500">
+                        <div className="flex items-center justify-center space-x-2">
+                          <Brain className="w-4 h-4 text-cyan-400" />
+                          <span>Analyzing career progression patterns...</span>
+                        </div>
+                        <div className="flex items-center justify-center space-x-2">
+                          <Video className="w-4 h-4 text-blue-400" />
+                          <span>
+                            Rendering professional workplace scenes...
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center space-x-2">
+                          <Sparkles className="w-4 h-4 text-cyan-400" />
+                          <span>Adding cinematic effects...</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {careerVideoUrl && (
+                    <div className="space-y-6">
+                      <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-800 border border-cyan-500/30">
+                        <video
+                          src={careerVideoUrl}
+                          controls
+                          autoPlay
+                          muted
+                          loop
+                          className="w-full h-auto max-h-96 object-cover"
+                          poster="/api/placeholder/800/450"
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                        <div className="absolute top-4 right-4">
+                          <div className="px-3 py-1 bg-cyan-500/80 text-white text-xs rounded-full backdrop-blur border border-cyan-400/30">
+                            🤖 AI Generated
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="text-center space-y-4">
+                        <h4 className="text-lg font-semibold text-white">
+                          Your {baseline.role_title} Career Journey
+                        </h4>
+                        <p className="text-slate-400 text-sm max-w-2xl mx-auto">
+                          This AI-generated video showcases your potential
+                          career progression, from entry-level positions to
+                          senior leadership roles in your field.
+                        </p>
+
+                        <div className="flex items-center justify-center space-x-4">
+                          <button
+                            onClick={() =>
+                              generateCareerVideo(
+                                baseline.role_title,
+                                baseline.timeline[0]?.skills || []
+                              )
+                            }
+                            className="px-4 py-2 bg-slate-800/50 hover:bg-slate-700/50 text-cyan-300 rounded-lg text-sm transition-all border border-slate-600/30 hover:border-cyan-500/30 flex items-center space-x-1"
+                          >
+                            <Video className="w-4 h-4" />
+                            <span>Generate New Video</span>
+                          </button>
+
+                          <a
+                            href={careerVideoUrl}
+                            download={`${baseline.role_title.replace(
+                              /\s+/g,
+                              "-"
+                            )}-career-journey.mp4`}
+                            className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-lg text-sm transition-all flex items-center space-x-1 neon-glow-cyan"
+                          >
+                            <Download className="w-4 h-4" />
+                            <span>Download Video</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {videoError && (
+                    <div className="text-center py-12">
+                      <div className="flex items-center justify-center w-20 h-20 bg-red-500/20 rounded-full mx-auto mb-6 border border-red-500/30">
+                        <AlertCircle className="w-10 h-10 text-red-400" />
+                      </div>
+                      <h4 className="text-xl font-semibold text-white mb-3">
+                        Video Generation Failed
+                      </h4>
+                      <p className="text-red-400 mb-6">{videoError}</p>
+                      <button
+                        onClick={() => {
+                          setVideoError(null);
+                          generateCareerVideo(
+                            baseline.role_title,
+                            baseline.timeline[0]?.skills || []
+                          );
+                        }}
+                        className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-lg transition-all neon-glow-cyan"
+                      >
+                        Try Again
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
           {/* Action Plan CTA - Replace ActionStack component */}
           {baseline && (
             <div className="text-center mt-16">
@@ -706,6 +923,7 @@ function generateTimeline(intakeData: IntakeData): Timeline[] {
         "Strategic Planning",
         "Stakeholder Management",
       ],
+      skills: [],
     },
     {
       phase: "Year 3-5: Leadership & Innovation",
@@ -736,6 +954,7 @@ function generateTimeline(intakeData: IntakeData): Timeline[] {
         "Innovation Management",
         "Market Analysis",
       ],
+      skills: [],
     },
   ];
 }
@@ -861,6 +1080,7 @@ function generateVariantResult(
           "Academic Writing",
           "Grant Writing",
         ],
+        skills: [],
       },
       {
         phase: "Year 3-5: Research Leadership",
@@ -891,6 +1111,7 @@ function generateVariantResult(
           "Innovation Strategy",
           "Scientific Leadership",
         ],
+        skills: [],
       },
     ],
     skill_gaps: [

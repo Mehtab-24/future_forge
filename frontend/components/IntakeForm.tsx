@@ -688,7 +688,7 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                   <FileText className="w-6 h-6 text-green-400" />
                   <span>Smart Resume Upload</span>
                   <span className="px-2 py-1 bg-green-500/20 text-green-300 rounded-lg text-xs font-bold border border-green-500/30">
-                    🚀 AI-POWERED
+                    AI-POWERED
                   </span>
                 </label>
 
