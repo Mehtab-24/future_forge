@@ -2,8 +2,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Zap, Menu, X, Target } from "lucide-react";
+import { Home, Zap, Menu, X, Target, Brain } from "lucide-react";
 import { NavigationItem } from "@/types/simulation";
+import GoogleTranslate from "./GoogleTranslate";
 
 const navigationItems: NavigationItem[] = [
   {
@@ -92,19 +93,27 @@ export default function Navigation() {
             })}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden relative p-2 rounded-xl bg-gradient-to-r from-slate-800/80 to-slate-700/80 border border-slate-600/30 hover:from-slate-700/80 hover:to-slate-600/80 transition-all duration-200 group"
-          >
-            <div className="relative z-10">
-              {isMenuOpen ? (
-                <X className="w-5 h-5 text-slate-300 group-hover:text-white transition-colors duration-200" />
-              ) : (
-                <Menu className="w-5 h-5 text-slate-300 group-hover:text-white transition-colors duration-200" />
-              )}
+          {/* RIGHT SIDE: Translation + Mobile Menu */}
+          <div className="flex items-center space-x-4">
+            {/* DESKTOP: Google Translate Widget */}
+            <div className="hidden md:block">
+              <GoogleTranslate />
             </div>
-          </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden relative p-2 rounded-xl bg-gradient-to-r from-slate-800/80 to-slate-700/80 border border-slate-600/30 hover:from-slate-700/80 hover:to-slate-600/80 transition-all duration-200 group"
+            >
+              <div className="relative z-10">
+                {isMenuOpen ? (
+                  <X className="w-5 h-5 text-slate-300 group-hover:text-white transition-colors duration-200" />
+                ) : (
+                  <Menu className="w-5 h-5 text-slate-300 group-hover:text-white transition-colors duration-200" />
+                )}
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -115,6 +124,7 @@ export default function Navigation() {
         }`}
       >
         <div className="px-4 pt-2 pb-4 space-y-2 bg-slate-900/98 backdrop-blur-xl border-t border-slate-700/30">
+          {/* MOBILE: Navigation Items */}
           {navigationItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -151,6 +161,13 @@ export default function Navigation() {
               </Link>
             );
           })}
+
+          {/* MOBILE: Google Translate Widget */}
+          <div className="pt-2 border-t border-slate-700/30 mt-2">
+            <div className="px-3 py-2">
+              <GoogleTranslate />
+            </div>
+          </div>
         </div>
       </div>
     </nav>

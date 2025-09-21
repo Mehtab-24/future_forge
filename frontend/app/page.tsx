@@ -67,7 +67,6 @@ export default function Home() {
                 <span className="text-gradient-primary">Future</span>
                 <span className="text-gradient-accent">Forge</span>
               </h1>
-
               <p className="text-2xl md:text-4xl text-slate-300 max-w-4xl mx-auto font-light leading-relaxed">
                 Experience{" "}
                 <span className="text-gradient-accent font-bold">20 years</span>{" "}
