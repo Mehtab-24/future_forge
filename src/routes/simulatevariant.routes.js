@@ -3,7 +3,7 @@ const { z } = require('zod');
 const { variantSchema, variantSchemaTextForPrompt } = require('../schemas/simulation');
 const { butterflyPrompt } = require('../prompts/butterfly');
 const { tryJsonParse, jsonRepair } = require('../utils/jsonrepair');
-const { generateOnce, generateStream } = require('../lib/gemini');
+const { generateOnce, generateStream } = require('../lib/openai');
 
 const router = Router();
 
@@ -116,6 +116,24 @@ router.post('/', async (req, res, next) => {
       return res.end();
     }
   } catch (err) {
+    // Handle specific API errors with better messages
+    if (err.code === 'API_KEY_MISSING' || err.code === 'API_KEY_INVALID') {
+      return res.status(503).json({
+        code: err.code,
+        message: err.message,
+        hint: 'Please configure your OPENROUTER_API_KEY in the .env file'
+      });
+    }
+    
+    // Handle OpenRouter API errors
+    if (err.message && err.message.includes('OpenRouter')) {
+      return res.status(502).json({
+        code: 'OPENROUTER_API_ERROR',
+        message: 'Failed to connect to OpenRouter API',
+        details: process.env.NODE_ENV === 'development' ? err.message : undefined
+      });
+    }
+    
     next(err);
   }
 });

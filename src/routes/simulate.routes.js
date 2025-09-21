@@ -3,7 +3,7 @@ const { z } = require('zod');
 const { baselineSchema, schemaTextForPrompt } = require('../schemas/simulation');
 const { baselinePrompt } = require('../prompts/baseline');
 const { tryJsonParse, jsonRepair } = require('../utils/jsonrepair');
-const { generateOnce, generateStream } = require('../lib/gemini');
+const { generateOnce, generateStream } = require('../lib/openai');
 
 const router = Router();
 

@@ -9,8 +9,16 @@ function getClient() {
 
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    const err = new Error('OPENROUTER_API_KEY is not set');
-    err.status = 500;
+    const err = new Error('OPENROUTER_API_KEY environment variable is not configured. Please set it in your .env file or environment variables.');
+    err.status = 503;
+    err.code = 'API_KEY_MISSING';
+    throw err;
+  }
+
+  if (apiKey === 'your_openrouter_api_key_here' || apiKey.length < 10) {
+    const err = new Error('Invalid OPENROUTER_API_KEY. Please get a valid API key from https://openrouter.ai/keys');
+    err.status = 503;
+    err.code = 'API_KEY_INVALID';
     throw err;
   }
 
