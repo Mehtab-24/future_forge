@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { z } = require('zod');
-const { baselineSchema, schemaTextForPrompt } = require('../schemas/simulation');
-const { baselinePrompt } = require('../prompts/baseline');
+const { variantSchema, variantSchemaTextForPrompt } = require('../schemas/simulation');
+const { butterflyPrompt } = require('../prompts/butterfly');
 const { tryJsonParse, jsonRepair } = require('../utils/jsonrepair');
 const { generateOnce, generateStream } = require('../lib/gemini');
 
@@ -11,6 +11,7 @@ const intakeSchema = z.object({
   user_skills: z.array(z.string()).default([]),
   interests: z.array(z.string()).default([]),
   constraints: z.array(z.string()).default([]),
+  one_change: z.string().min(1, 'one_change is required'),
 });
 
 function strictSuffix() {
@@ -35,20 +36,21 @@ function sse(res, event, data) {
 
 router.post('/', async (req, res, next) => {
   try {
-    const { user_skills, interests, constraints } = intakeSchema.parse(req.body || {});
-    const schemaText = schemaTextForPrompt();
-    const prompt = baselinePrompt({ user_skills, interests, constraints }, schemaText);
+    const { user_skills, interests, constraints, one_change } = intakeSchema.parse(req.body || {});
+    const schemaText = variantSchemaTextForPrompt();
+    const prompt = butterflyPrompt({ user_skills, interests, constraints }, one_change, schemaText);
     const streaming = req.query.stream === '1';
 
     if (isMock(req)) {
       const mock = {
-        role_title: "Frontend Developer (Mock)",
+        role_title: "Frontend Developer (Variant Mock)",
         timeline: [
           { phase: "Week 1", goals: ["Setup"], milestones: ["Scaffold"], risks: ["Time"], checkpoints: ["Repo ready"] }
         ],
         skill_gaps: ["Testing"],
-        action_stack: [{ type: "learn", title: "React basics", description: "Docs & tutorials", estimated_weeks: 1 }],
-        rationale: "Starter path for demo"
+        action_stack: [{ type: "practice", title: "UI patterns", description: "Build small comps", estimated_weeks: 1 }],
+        rationale: "Minor shift based on one_change",
+        deltas: [{ field: "milestones", description: "More UI-focused tasks" }]
       };
       if (streaming) {
         sseInit(res);
@@ -75,14 +77,12 @@ router.post('/', async (req, res, next) => {
         return res.status(502).json({
           code: 'MODEL_JSON_PARSE_FAILED',
           message: 'Model output was not valid JSON after retry and repair',
-          hint: 'Try again or simplify inputs',
         });
       }
-      const valid = baselineSchema.safeParse(parsed.value);
+      const valid = variantSchema.safeParse(parsed.value);
       if (!valid.success) {
         return res.status(502).json({
           code: 'SCHEMA_VALIDATION_FAILED',
-          message: 'Output did not match required schema',
           issues: valid.error.issues,
         });
       }
@@ -101,11 +101,11 @@ router.post('/', async (req, res, next) => {
         if (repaired.ok) parsed = repaired;
       }
       if (!parsed.ok) {
-        sse(res, 'error', { code: 'MODEL_JSON_PARSE_FAILED', message: 'Unable to parse streamed JSON' });
+        sse(res, 'error', { code: 'MODEL_JSON_PARSE_FAILED' });
         sse(res, 'end', 'error');
         return res.end();
       }
-      const valid = baselineSchema.safeParse(parsed.value);
+      const valid = variantSchema.safeParse(parsed.value);
       if (!valid.success) {
         sse(res, 'error', { code: 'SCHEMA_VALIDATION_FAILED', issues: valid.error.issues });
         sse(res, 'end', 'error');

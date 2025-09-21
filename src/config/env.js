@@ -1,10 +1,10 @@
 const dotenv = require('dotenv');
-const { logger } = require('../utils/logger');
 
 function loadConfig() {
   const result = dotenv.config();
   if (result.error && process.env.NODE_ENV !== 'production') {
-    logger.warn('.env file not found, relying on process env only');
+    // Use console here to avoid any chance of circular import with logger
+    console.warn('[WARN] .env file not found; relying on process env only');
   }
 }
 

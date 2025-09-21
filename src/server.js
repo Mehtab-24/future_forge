@@ -1,10 +1,10 @@
 const { loadConfig } = require('./config/env');
-loadConfig(); // dotenv must be loaded as early as possible
+loadConfig();
 
 const http = require('http');
 const app = require('./app');
 const { connectDB } = require('./config/db');
-const { logger } = require('./utils/logger');
+const logger = require('./utils/logger'); // CHANGED: default import
 
 const PORT = process.env.PORT || 5000;
 

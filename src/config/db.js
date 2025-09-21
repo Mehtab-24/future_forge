@@ -1,5 +1,5 @@
+const logger = require('../utils/logger');
 const mongoose = require('mongoose');
-const { logger } = require('../utils/logger');
 
 async function connectDB(uri) {
   if (!uri) throw new Error('MONGODB_URI is not set');
