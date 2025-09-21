@@ -114,7 +114,7 @@ export default function ActionStack({
         </div>
 
         {/* Centered Title */}
-        <h2 className="text-4xl md:text-5xl font-black font-['Orbitron'] mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        <h2 className="text-4xl md:text-5xl font-black font-['Orbitron']  mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Your Action Stack
         </h2>
 
@@ -189,7 +189,7 @@ export default function ActionStack({
                     >
                       <div className={typeConfig.color}>{typeConfig.icon}</div>
                     </div>
-                    <h3 className="text-xl font-black text-white font-['Orbitron']">
+                    <h3 className="text-xl font-black text-white ">
                       {action.title}
                     </h3>
                   </div>
@@ -206,7 +206,7 @@ export default function ActionStack({
 
               {/* Description */}
               <div className="mb-6">
-                <h4 className="text-cyan-400 font-bold text-sm mb-3 flex items-center font-['Orbitron']">
+                <h4 className="text-cyan-400 font-bold text-sm mb-3 flex items-center ">
                   <FileText className="w-4 h-4 mr-2" />
                   What You&apos;ll Do
                 </h4>
@@ -219,7 +219,7 @@ export default function ActionStack({
 
               {/* Why It Matters */}
               <div className="mb-6">
-                <h4 className="text-purple-400 font-bold text-sm mb-3 flex items-center font-['Orbitron']">
+                <h4 className="text-purple-400 font-bold text-sm mb-3 flex items-center ">
                   <Target className="w-4 h-4 mr-2" />
                   Why This Matters
                 </h4>

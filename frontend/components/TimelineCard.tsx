@@ -40,9 +40,7 @@ export default function TimelineCard({
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
           <Calendar className={`w-6 h-6 text-${accentColor}`} />
-          <h3 className="text-xl font-black text-white font-['Orbitron']">
-            {timeline.phase}
-          </h3>
+          <h3 className="text-xl font-black text-white ">{timeline.phase}</h3>
         </div>
         <div
           className={`px-3 py-1 rounded-full bg-${
@@ -74,7 +72,7 @@ export default function TimelineCard({
         {/* Goals Section */}
         <div className="space-y-4">
           <h4
-            className={`text-${accentColor} font-bold text-lg flex items-center font-['Orbitron']`}
+            className={`text-${accentColor} font-bold text-lg flex items-center `}
           >
             <Target className="w-5 h-5 mr-2" />
             Strategic Goals
@@ -105,7 +103,7 @@ export default function TimelineCard({
         {/* Projects Section */}
         <div className="space-y-4">
           <h4
-            className={`text-${accentColor} font-bold text-lg flex items-center font-['Orbitron']`}
+            className={`text-${accentColor} font-bold text-lg flex items-center `}
           >
             <Briefcase className="w-5 h-5 mr-2" />
             Key Projects
@@ -127,7 +125,7 @@ export default function TimelineCard({
 
         {/* Risks Section */}
         <div className="space-y-4">
-          <h4 className="text-red-400 font-bold text-lg flex items-center font-['Orbitron']">
+          <h4 className="text-red-400 font-bold text-lg flex items-center ">
             <AlertTriangle className="w-5 h-5 mr-2" />
             Risk Factors
           </h4>
@@ -148,7 +146,7 @@ export default function TimelineCard({
 
         {/* Checkpoints Section */}
         <div className="space-y-4">
-          <h4 className="text-emerald-400 font-bold text-lg flex items-center font-['Orbitron']">
+          <h4 className="text-emerald-400 font-bold text-lg flex items-center ">
             <Award className="w-5 h-5 mr-2" />
             Success Milestones
           </h4>
@@ -171,7 +169,7 @@ export default function TimelineCard({
       {/* Skills Developed Section */}
       <div className="mt-6 pt-6 border-t border-slate-700/50">
         <h4
-          className={`text-${accentColor} font-bold text-lg mb-4 flex items-center font-['Orbitron']`}
+          className={`text-${accentColor} font-bold text-lg mb-4 flex items-center`}
         >
           <TrendingUp className="w-5 h-5 mr-2" />
           Skills Developed

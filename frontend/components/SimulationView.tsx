@@ -251,7 +251,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
           </div>
 
           {/* Simulation Results Grid */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mt-12 px-6 md:px-8 lg:px-12">
             {/* Baseline Column */}
             <div>
               <div className="flex justify-between items-center mb-8">
@@ -518,10 +518,11 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
             </div>
           </div>
 
+          <div className="mt-12 mb-8"></div>
           {/* Rest of the component remains the same... */}
           {/* Comparison Toggle - Remove separate background */}
           {baseline && variant && (
-            <div className="text-center mb-8">
+            <div className="text-center mt-12 mb-8 px-6 md:px-8 lg:px-12">
               <button
                 onClick={() => setShowComparison(!showComparison)}
                 className="transition-all duration-300 hover:scale-[1.02] rounded-2xl"
@@ -538,7 +539,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
 
           {/* Enhanced Detailed Comparison */}
           {showComparison && baseline && variant && (
-            <div className="glass-card p-8 mb-12 neon-glow-indigo bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
+            <div className="glass-card p-8 mb-12 mx-8 md:mx-12 lg:mx-14 neon-glow-indigo bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
               <h3 className="text-3xl font-black text-white mb-6 text-center font-['Orbitron'] flex items-center justify-center">
                 <BarChart3 className="w-8 h-8 mr-4 text-indigo-400" />
                 Timeline Comparison Analysis
