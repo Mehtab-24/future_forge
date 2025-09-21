@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api/v1';
 
 interface ApiResponse<T> {
   data?: T;
@@ -59,7 +59,7 @@ class ApiService {
     });
   }
 
-  // Simulation endpoints
+  // Simulation endpoints (no auth required)
   async simulateBaseline(skills: string[], interests: string[], constraints: string[]) {
     return this.request<any>('/simulate?mock=1', {
       method: 'POST',
@@ -68,6 +68,10 @@ class ApiService {
         interests,
         constraints,
       }),
+      // Remove auth header for simulation and ensure proper headers
+      headers: {
+        'Content-Type': 'application/json',
+      }
     });
   }
 
@@ -85,6 +89,10 @@ class ApiService {
         constraints,
         one_change: oneChange,
       }),
+      // Remove auth header for simulation and ensure proper headers
+      headers: {
+        'Content-Type': 'application/json',
+      }
     });
   }
 

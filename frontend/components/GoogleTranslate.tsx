@@ -31,8 +31,20 @@ export default function GoogleTranslate() {
       // For English, reload to get original content
       window.location.reload();
     } else {
-      // For other languages, trigger translation
-      translationService.changeLanguage(languageCode);
+      // For other languages, trigger translation with retry logic
+      let retryCount = 0;
+      const maxRetries = 3;
+      
+      const tryTranslation = () => {
+        const success = translationService.changeLanguage(languageCode);
+        if (!success && retryCount < maxRetries) {
+          retryCount++;
+          setTimeout(tryTranslation, 1000 * retryCount);
+        }
+      };
+      
+      // Initial attempt
+      setTimeout(tryTranslation, 100);
     }
     
     setIsDropdownOpen(false);

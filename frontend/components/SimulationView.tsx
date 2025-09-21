@@ -30,7 +30,7 @@ import {
 } from "@/types/simulation";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
-import { useAuth } from "@/contexts/AuthContext";
+// Removed auth import - simulation is now publicly accessible
 
 import Navigation from "./Navigation";
 import TimelineCard from "./TimelineCard";
@@ -42,7 +42,7 @@ interface SimulationViewProps {
 
 export default function SimulationView({ intakeData }: SimulationViewProps) {
   const router = useRouter();
-  const { token, isLoading: authLoading } = useAuth();
+  // Removed auth dependency - simulation is now publicly accessible
   const [baseline, setBaseline] = useState<SimulationResult | null>(null);
   const [variant, setVariant] = useState<VariantResult | null>(null);
   const [loading, setLoading] = useState({ baseline: true, variant: false });
@@ -50,30 +50,16 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
     "Initializing quantum simulation..."
   );
   const [showComparison, setShowComparison] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!authLoading && !token) {
-      setAuthError("Please log in to access career simulations");
-      setTimeout(() => {
-        router.push("/login");
-      }, 3000);
-      return;
-    }
-    
-    if (token && !authLoading) {
-      simulateBaseline();
-    }
-  }, [token, authLoading]);
+    // Removed auth check - simulation is now publicly accessible
+    simulateBaseline();
+  }, []);
 
   const simulateBaseline = async () => {
-    if (!token) {
-      setAuthError("Authentication required");
-      return;
-    }
-
+    // Removed token check - simulation is now publicly accessible
     setLoading((prev) => ({ ...prev, baseline: true }));
-    setAuthError(null);
+    // Removed auth error setting - simulation is now publicly accessible
 
     const stages = [
       "Initializing quantum simulation...",
@@ -101,7 +87,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
         setBaseline(response.data);
       } else {
         console.error('Simulation failed:', response.error);
-        setAuthError(response.error || "Simulation failed");
+        // Removed auth error setting - simulation is now publicly accessible
         // Fallback to mock data if API fails
         const mockData: SimulationResult = {
           role_title: generateRoleTitle(intakeData),
@@ -143,11 +129,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
   };
 
   const simulateVariant = async () => {
-    if (!token) {
-      setAuthError("Authentication required for variant simulation");
-      return;
-    }
-    
+    // Removed token check - simulation is now publicly accessible
     if (!intakeData.oneChange) return;
 
     setLoading((prev) => ({ ...prev, variant: true }));
@@ -177,7 +159,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
         setVariant(response.data);
       } else {
         console.error('Variant simulation failed:', response.error);
-        setAuthError(response.error || "Variant simulation failed");
+        // Removed auth error setting - simulation is now publicly accessible
         // Fallback to mock variant
         const mockVariant: VariantResult = generateVariantResult(
           intakeData,
@@ -237,37 +219,9 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
     }, 3000);
   };
 
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center pt-16">
-        <div className="text-center">
-          <div className="text-6xl animate-spin mb-4">⚡</div>
-          <p className="text-white/60 text-xl">
-            Checking authentication...
-          </p>
-        </div>
-      </div>
-    );
-  }
+  // Removed authLoading check - simulation is now publicly accessible
 
-  if (authError) {
-    return (
-      <div className="min-h-screen flex items-center justify-center pt-16">
-        <div className="text-center glass-card p-8">
-          <div className="text-6xl mb-4">🔒</div>
-          <h2 className="text-white font-bold text-2xl mb-4">
-            Authentication Error
-          </h2>
-          <p className="text-white/70 mb-6">
-            {authError}
-          </p>
-          <button onClick={() => router.push("/login")} className="btn-primary">
-            Go to Login
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Removed auth error display - simulation is now publicly accessible
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">

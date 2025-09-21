@@ -4,7 +4,7 @@ const { variantSchema, variantSchemaTextForPrompt } = require('../schemas/simula
 const { butterflyPrompt } = require('../prompts/butterfly');
 const { tryJsonParse, jsonRepair } = require('../utils/jsonrepair');
 const { generateOnce, generateStream } = require('../lib/openai');
-const { requireAuth } = require('../middlewares/auth');
+// const { requireAuth } = require('../middlewares/auth'); // Removed auth requirement for simulation variant
 
 const router = Router();
 
@@ -35,7 +35,7 @@ function sse(res, event, data) {
   res.write(`data: ${typeof data === 'string' ? data : JSON.stringify(data)}\n\n`);
 }
 
-router.post('/', requireAuth, async (req, res, next) => {
+router.post('/', async (req, res, next) => { // Removed requireAuth middleware
   try {
     const { user_skills, interests, constraints, one_change } = intakeSchema.parse(req.body || {});
     const schemaText = variantSchemaTextForPrompt();

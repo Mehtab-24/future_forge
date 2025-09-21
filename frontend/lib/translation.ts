@@ -6,33 +6,56 @@ interface Language {
 
 export const languages: Language[] = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-  { code: 'pt', name: 'Português', flag: '🇵🇹' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-  { code: 'ja', name: '日本語', flag: '🇯🇵' },
-  { code: 'ko', name: '한국어', flag: '🇰🇷' },
-  { code: 'zh-CN', name: '中文(简体)', flag: '🇨🇳' },
-  { code: 'zh-TW', name: '中文(繁體)', flag: '🇹🇼' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
-  { code: 'th', name: 'ไทย', flag: '🇹🇭' },
-  { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-  { code: 'id', name: 'Bahasa Indonesia', flag: '🇮🇩' },
-  { code: 'ms', name: 'Bahasa Melayu', flag: '🇲🇾' },
-  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
-  { code: 'pl', name: 'Polski', flag: '🇵🇱' },
-  { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
-  { code: 'sv', name: 'Svenska', flag: '🇸🇪' },
-  { code: 'no', name: 'Norsk', flag: '🇳🇴' },
-  { code: 'da', name: 'Dansk', flag: '🇩🇰' },
-  { code: 'fi', name: 'Suomi', flag: '🇫🇮' },
-  { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
-  { code: 'he', name: 'עברית', flag: '🇮🇱' },
-  { code: 'uk', name: 'Українська', flag: '🇺🇦' },
-  { code: 'cs', name: 'Čeština', flag: '🇨🇿' }
+  { code: 'es', name: 'Español (Spanish)', flag: '🇪🇸' },
+  { code: 'fr', name: 'Français (French)', flag: '🇫🇷' },
+  { code: 'de', name: 'Deutsch (German)', flag: '🇩🇪' },
+  { code: 'it', name: 'Italiano (Italian)', flag: '🇮🇹' },
+  { code: 'pt', name: 'Português (Portuguese)', flag: '🇵🇹' },
+  { code: 'ru', name: 'Русский (Russian)', flag: '🇷🇺' },
+  { code: 'ja', name: '日本語 (Japanese)', flag: '🇯🇵' },
+  { code: 'ko', name: '한국어 (Korean)', flag: '🇰🇷' },
+  { code: 'zh-CN', name: '中文(简体) (Chinese Simplified)', flag: '🇨🇳' },
+  { code: 'zh-TW', name: '中文(繁體) (Chinese Traditional)', flag: '🇹🇼' },
+  { code: 'ar', name: 'العربية (Arabic)', flag: '🇸🇦' },
+  { code: 'hi', name: 'हिन्दी (Hindi)', flag: '🇮🇳' },
+  { code: 'th', name: 'ไทย (Thai)', flag: '🇹🇭' },
+  { code: 'vi', name: 'Tiếng Việt (Vietnamese)', flag: '🇻🇳' },
+  { code: 'id', name: 'Bahasa Indonesia (Indonesian)', flag: '🇮🇩' },
+  { code: 'ms', name: 'Bahasa Melayu (Malay)', flag: '🇲🇾' },
+  { code: 'tr', name: 'Türkçe (Turkish)', flag: '🇹🇷' },
+  { code: 'pl', name: 'Polski (Polish)', flag: '🇵🇱' },
+  { code: 'nl', name: 'Nederlands (Dutch)', flag: '🇳🇱' },
+  { code: 'sv', name: 'Svenska (Swedish)', flag: '🇸🇪' },
+  { code: 'no', name: 'Norsk (Norwegian)', flag: '🇳🇴' },
+  { code: 'da', name: 'Dansk (Danish)', flag: '🇩🇰' },
+  { code: 'fi', name: 'Suomi (Finnish)', flag: '🇫🇮' },
+  { code: 'el', name: 'Ελληνικά (Greek)', flag: '🇬🇷' },
+  { code: 'he', name: 'עברית (Hebrew)', flag: '🇮🇱' },
+  { code: 'uk', name: 'Українська (Ukrainian)', flag: '🇺🇦' },
+  { code: 'cs', name: 'Čeština (Czech)', flag: '🇨🇿' },
+  { code: 'hu', name: 'Magyar (Hungarian)', flag: '🇭🇺' },
+  { code: 'ro', name: 'Română (Romanian)', flag: '🇷🇴' },
+  { code: 'bg', name: 'Български (Bulgarian)', flag: '🇧🇬' },
+  { code: 'hr', name: 'Hrvatski (Croatian)', flag: '🇭🇷' },
+  { code: 'sk', name: 'Slovenčina (Slovak)', flag: '🇸🇰' },
+  { code: 'sl', name: 'Slovenščina (Slovenian)', flag: '🇸🇮' },
+  { code: 'et', name: 'Eesti (Estonian)', flag: '🇪🇪' },
+  { code: 'lv', name: 'Latviešu (Latvian)', flag: '🇱🇻' },
+  { code: 'lt', name: 'Lietuvių (Lithuanian)', flag: '🇱🇹' },
+  { code: 'mt', name: 'Malti (Maltese)', flag: '🇲🇹' },
+  { code: 'sw', name: 'Kiswahili (Swahili)', flag: '🇹🇿' },
+  { code: 'af', name: 'Afrikaans', flag: '🇿🇦' },
+  { code: 'fa', name: 'فارسی (Persian)', flag: '🇮🇷' },
+  { code: 'ur', name: 'اردو (Urdu)', flag: '🇵🇰' },
+  { code: 'bn', name: 'বাংলা (Bengali)', flag: '🇧🇩' },
+  { code: 'ta', name: 'தமிழ் (Tamil)', flag: '🇮🇳' },
+  { code: 'te', name: 'తెలుగు (Telugu)', flag: '🇮🇳' },
+  { code: 'mr', name: 'मराठी (Marathi)', flag: '🇮🇳' },
+  { code: 'gu', name: 'ગુજરાતી (Gujarati)', flag: '🇮🇳' },
+  { code: 'kn', name: 'ಕನ್ನಡ (Kannada)', flag: '🇮🇳' },
+  { code: 'ml', name: 'മലയാളം (Malayalam)', flag: '🇮🇳' },
+  { code: 'si', name: 'සිංහල (Sinhala)', flag: '🇱🇰' },
+  { code: 'ne', name: 'नेपाली (Nepali)', flag: '🇳🇵' }
 ];
 
 class TranslationService {
@@ -41,20 +64,18 @@ class TranslationService {
   initializeGoogleTranslate() {
     if (this.isInitialized) return;
 
-    // Create the Google Translate script element
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    
+    // Check if the Google Translate element already exists
+    let translateElement = document.getElementById('google_translate_element');
+    if (!translateElement) {
+      translateElement = document.createElement('div');
+      translateElement.id = 'google_translate_element';
+      translateElement.style.display = 'none';
+      document.body.appendChild(translateElement);
+    }
+
     // Define the callback function
     (window as any).googleTranslateElementInit = () => {
       try {
-        // Create the translate element
-        const translateElement = document.createElement('div');
-        translateElement.id = 'google_translate_element';
-        document.body.appendChild(translateElement);
-
         // Initialize Google Translate
         new (window as any).google.translate.TranslateElement({
           pageLanguage: 'en',
@@ -64,17 +85,17 @@ class TranslationService {
         }, 'google_translate_element');
 
         this.isInitialized = true;
-        
-        // Hide the Google Translate widget
-        setTimeout(() => {
-          const widget = document.getElementById('google_translate_element');
-          if (widget) widget.style.display = 'none';
-        }, 100);
       } catch (error) {
         console.error('Error initializing Google Translate:', error);
       }
     };
 
+    // Create the Google Translate script element
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    
     // Add script to document
     document.head.appendChild(script);
 
@@ -91,8 +112,8 @@ class TranslationService {
     document.head.appendChild(style);
   }
 
-  changeLanguage(languageCode: string) {
-    if (!this.isInitialized) return;
+  changeLanguage(languageCode: string): boolean {
+    if (!this.isInitialized) return false;
 
     try {
       // Find the Google Translate select element
@@ -103,12 +124,15 @@ class TranslationService {
         selectElement.value = languageCode;
         const event = new Event('change', { bubbles: true });
         selectElement.dispatchEvent(event);
+        return true;
       } else {
         // Retry after a delay
         setTimeout(() => this.changeLanguage(languageCode), 500);
+        return false;
       }
     } catch (error) {
       console.error('Error changing language:', error);
+      return false;
     }
   }
 

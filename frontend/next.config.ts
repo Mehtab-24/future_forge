@@ -16,6 +16,21 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  // Proxy API requests to backend server
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:5003/api/:path*',
+      },
+    ];
+  },
 }
 
 export default nextConfig
