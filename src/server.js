@@ -1,6 +1,9 @@
 const { loadConfig } = require('./config/env');
 loadConfig();
 
+// Set database availability flag based on connection success
+process.env.DB_AVAILABLE = 'false';
+
 const http = require('http');
 const app = require('./app');
 const { connectDB } = require('./config/db');
@@ -10,7 +13,17 @@ const PORT = process.env.PORT || 5000;
 
 (async () => {
   try {
-    await connectDB(process.env.MONGODB_URI);
+    // Try to connect to database, but continue without it if connection fails
+    try {
+      await connectDB(process.env.MONGODB_URI);
+      logger.info('Database connected successfully');
+      process.env.DB_AVAILABLE = 'true';
+    } catch (dbError) {
+      logger.warn('Database connection failed, continuing without database:', dbError.message);
+      logger.warn('Note: Some features may not work without database connection');
+      process.env.DB_AVAILABLE = 'false';
+    }
+    
     const server = http.createServer(app);
 
     server.listen(PORT, () => {

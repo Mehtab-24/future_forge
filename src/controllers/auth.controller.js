@@ -25,6 +25,24 @@ exports.register = async (req, res, next) => {
   try {
     const { name, email, password } = registerSchema.parse(req.body);
 
+    // Check if database is available
+    if (process.env.DB_AVAILABLE !== 'true') {
+      // Mock registration for demo purposes
+      const mockUser = {
+        _id: 'mock-user-id',
+        name,
+        email,
+        createdAt: new Date()
+      };
+      
+      const token = signToken(mockUser);
+      return res.status(201).json({
+        message: 'Registered successfully (demo mode)',
+        token,
+        user: { id: mockUser._id, name: mockUser.name, email: mockUser.email, createdAt: mockUser.createdAt }
+      });
+    }
+
     const existing = await User.findOne({ email });
     if (existing) return res.status(409).json({ message: 'Email already in use' });
 
@@ -49,6 +67,24 @@ exports.login = async (req, res, next) => {
   try {
     const { email, password } = loginSchema.parse(req.body);
 
+    // Check if database is available
+    if (process.env.DB_AVAILABLE !== 'true') {
+      // Mock login for demo purposes - accept any valid email/password
+      const mockUser = {
+        _id: 'mock-user-id',
+        name: 'Demo User',
+        email,
+        createdAt: new Date()
+      };
+      
+      const token = signToken(mockUser);
+      return res.json({
+        message: 'Logged in (demo mode)',
+        token,
+        user: { id: mockUser._id, name: mockUser.name, email: mockUser.email, createdAt: mockUser.createdAt }
+      });
+    }
+
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ message: 'Invalid credentials' });
 
@@ -71,6 +107,18 @@ exports.login = async (req, res, next) => {
 
 exports.me = async (req, res, next) => {
   try {
+    // Check if database is available
+    if (process.env.DB_AVAILABLE !== 'true') {
+      // Mock user for demo purposes
+      const mockUser = {
+        _id: 'mock-user-id',
+        name: 'Demo User',
+        email: req.user.email,
+        createdAt: new Date()
+      };
+      return res.json({ user: mockUser });
+    }
+
     const user = await User.findById(req.user.sub).select('-password');
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json({ user });

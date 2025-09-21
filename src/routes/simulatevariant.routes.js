@@ -3,7 +3,8 @@ const { z } = require('zod');
 const { variantSchema, variantSchemaTextForPrompt } = require('../schemas/simulation');
 const { butterflyPrompt } = require('../prompts/butterfly');
 const { tryJsonParse, jsonRepair } = require('../utils/jsonrepair');
-const { generateOnce, generateStream } = require('../lib/gemini');
+const { generateOnce, generateStream } = require('../lib/openai');
+const { requireAuth } = require('../middlewares/auth');
 
 const router = Router();
 
@@ -34,7 +35,7 @@ function sse(res, event, data) {
   res.write(`data: ${typeof data === 'string' ? data : JSON.stringify(data)}\n\n`);
 }
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireAuth, async (req, res, next) => {
   try {
     const { user_skills, interests, constraints, one_change } = intakeSchema.parse(req.body || {});
     const schemaText = variantSchemaTextForPrompt();
