@@ -68,17 +68,40 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
     }));
   };
 
+  const removeSkill = (indexToRemove: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      skills: prev.skills.filter((_, index) => index !== indexToRemove),
+    }));
+  };
+
+  const removeInterest = (indexToRemove: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      interests: prev.interests.filter((_, index) => index !== indexToRemove),
+    }));
+  };
+
+  const removeConstraint = (indexToRemove: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      constraints: prev.constraints.filter(
+        (_, index) => index !== indexToRemove
+      ),
+    }));
+  };
+
   const validateForm = (): boolean => {
     const newErrors: ValidationErrors = {};
 
     if (formData.skills.length === 0) {
       newErrors.skills =
-        "At least one skill is required to generate accurate career simulations";
+        "Please add at least 2-3 skills to generate accurate career simulations";
     }
 
     if (formData.interests.length === 0) {
       newErrors.interests =
-        "At least one career interest is required to personalize your timeline";
+        "Please add at least 1-2 career interests to personalize your timeline";
     }
 
     setErrors(newErrors);
@@ -125,13 +148,15 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
     "UI/UX Design",
   ];
 
-  // Validation Modal Component
+  // Enhanced Validation Modal Component
   const ValidationModal = () => (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="glass-card p-6 max-w-md w-full neon-glow-cyan">
-        <div className="flex items-center justify-between mb-4">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="glass-card p-8 max-w-md w-full neon-glow-red animate-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-6 h-6 text-red-400" />
+            <div className="p-2 bg-red-500/20 rounded-full">
+              <AlertTriangle className="w-6 h-6 text-red-400" />
+            </div>
             <h3 className="text-xl font-bold text-white">
               Required Fields Missing
             </h3>
@@ -144,24 +169,35 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
           </button>
         </div>
 
-        <div className="space-y-3 mb-6">
+        <div className="space-y-4 mb-8">
+          <p className="text-slate-300 mb-4">
+            Please fill in the following required fields to continue:
+          </p>
+
           {errors.skills && (
-            <div className="flex items-start space-x-3 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-              <AlertTriangle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-              <span className="text-red-300 text-sm">{errors.skills}</span>
+            <div className="flex items-start space-x-3 p-4 bg-red-500/10 border border-red-500/30 rounded-lg neon-glow-red">
+              <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <span className="text-red-300 font-medium">Skills:</span>
+                <p className="text-red-200 text-sm mt-1">{errors.skills}</p>
+              </div>
             </div>
           )}
+
           {errors.interests && (
-            <div className="flex items-start space-x-3 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-              <AlertTriangle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-              <span className="text-red-300 text-sm">{errors.interests}</span>
+            <div className="flex items-start space-x-3 p-4 bg-red-500/10 border border-red-500/30 rounded-lg neon-glow-red">
+              <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <span className="text-red-300 font-medium">Interests:</span>
+                <p className="text-red-200 text-sm mt-1">{errors.interests}</p>
+              </div>
             </div>
           )}
         </div>
 
         <button
           onClick={() => setShowValidationModal(false)}
-          className="btn-primary w-full flex items-center justify-center space-x-2"
+          className="btn-primary w-full flex items-center justify-center space-x-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 transition-all"
         >
           <CheckCircle className="w-4 h-4" />
           <span>Got it, I&apos;ll fill the required fields</span>
@@ -348,6 +384,13 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                       >
                         <CheckCircle className="w-3 h-3 mr-1" />
                         {skill}
+                        <button
+                          type="button"
+                          onClick={() => removeSkill(idx)}
+                          className="ml-2 hover:bg-green-500/30 rounded-full p-0.5 transition-colors"
+                        >
+                          <X size={12} />
+                        </button>
                       </span>
                     ))}
                   </div>
@@ -429,6 +472,13 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                       >
                         <CheckCircle className="w-3 h-3 mr-1" />
                         {interest}
+                        <button
+                          type="button"
+                          onClick={() => removeInterest(idx)}
+                          className="ml-2 hover:bg-green-500/30 rounded-full p-0.5 transition-colors"
+                        >
+                          <X size={12} />
+                        </button>
                       </span>
                     ))}
                   </div>
@@ -477,6 +527,13 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                       >
                         <Shield className="w-3 h-3 mr-1" />
                         {constraint}
+                        <button
+                          type="button"
+                          onClick={() => removeConstraint(idx)}
+                          className="ml-2 hover:bg-blue-500/30 rounded-full p-0.5 transition-colors"
+                        >
+                          <X size={12} />
+                        </button>
                       </span>
                     ))}
                   </div>
@@ -534,11 +591,7 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
               <div className="pt-12 space-y-10">
                 <button
                   onClick={handleSubmit}
-                  disabled={
-                    formData.skills.length === 0 ||
-                    formData.interests.length === 0 ||
-                    isSubmitting
-                  }
+                  disabled={isSubmitting}
                   className={`w-full relative group transition-all duration-300 ${
                     isSubmitting
                       ? "cursor-not-allowed"
