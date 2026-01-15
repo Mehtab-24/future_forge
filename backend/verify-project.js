@@ -4,10 +4,10 @@ function testRoute(path, name) {
   return new Promise((resolve, reject) => {
     console.log(`Testing ${name}...`);
     const data = JSON.stringify({
-      user_skills: [], 
-      interests: [], 
+      user_skills: ["React"], 
+      interests: ["Frontend"], 
       constraints: [],
-      one_change: "Make it more backend focused" // needed for variant
+      one_change: "Focus on Backend" 
     });
 
     const options = {
@@ -36,17 +36,33 @@ function testRoute(path, name) {
           const json = JSON.parse(body);
           console.log(`${name} response valid JSON`);
           
-          const timeline = json.timeline[0];
           const missing = [];
-          if (!timeline.projects) missing.push('projects');
-          if (!timeline.duration) missing.push('duration');
-          if (!timeline.skills_developed) missing.push('skills_developed');
+          
+          // Common checks
+          if (!json.timeline || json.timeline.length === 0) missing.push('timeline');
+          if (json.timeline && json.timeline[0]) {
+            const t = json.timeline[0];
+            if (!t.projects) missing.push('timeline[0].projects');
+            if (!t.duration) missing.push('timeline[0].duration');
+            if (!t.skills_developed) missing.push('timeline[0].skills_developed');
+          }
+
+          // Variant specific checks
+          if (path.includes('variant')) {
+            if (!json.deltas) missing.push('deltas');
+            else if (json.deltas.length > 0) {
+              const d = json.deltas[0];
+              if (!d.phase) missing.push('deltas[0].phase');
+              if (!d.change) missing.push('deltas[0].change');
+            }
+            if (!json.comparison_summary) missing.push('comparison_summary');
+          }
           
           if (missing.length > 0) {
             console.error(`${name} MISSING FIELDS: ${missing.join(', ')}`);
             reject(new Error(`Missing fields: ${missing.join(', ')}`));
           } else {
-            console.log(`${name} PASSED: All fields present.`);
+            console.log(`${name} PASSED: All required fields present.`);
             resolve();
           }
         } catch (e) {
@@ -68,11 +84,15 @@ function testRoute(path, name) {
 
 async function run() {
   try {
+    // Wait for server to potentially restart
+    console.log('Waiting 3s for server to stabilize...');
+    await new Promise(r => setTimeout(r, 3000));
+    
     await testRoute('/api/v1/simulate?mock=1', 'Simulate (Mock)');
     await testRoute('/api/v1/simulate-variant?mock=1', 'Simulate Variant (Mock)');
-    console.log('ALL TESTS PASSED');
+    console.log('ALL VERIFICATION TESTS PASSED');
   } catch (e) {
-    console.error('TESTS FAILED');
+    console.error('VERIFICATION FAILED');
     process.exit(1);
   }
 }

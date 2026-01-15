@@ -34,6 +34,7 @@ const baselineSchema = z.object({
 
 const variantSchema = baselineSchema.extend({
   deltas: z.array(z.object({
+    phase: z.string().min(1),
     field: z.enum(['goals', 'milestones', 'risks', 'checkpoints']).optional(),
     description: z.string().min(1),
   })).min(1),
@@ -101,10 +102,12 @@ function variantSchemaTextForPrompt() {
   "rationale": string,
   "deltas": [
     {
+      "phase": string,
       "field": "goals" | "milestones" | "risks" | "checkpoints",
-      "description": string
+      "change": string
     }
-  ]
+  ],
+  "comparison_summary": string
 }
 `.trim();
 }

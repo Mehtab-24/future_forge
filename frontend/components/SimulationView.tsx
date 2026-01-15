@@ -565,10 +565,10 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                   {/* Variant Timeline Cards */}
                   <div className="space-y-6">
                     {variant.timeline.map((timeline, idx) => {
-                      const delta = variant.deltas.find((d) =>
-                        d.phase
-                          .toLowerCase()
-                          .includes(timeline.phase.toLowerCase().split(":")[0])
+                      const delta = variant.deltas?.find((d) =>
+                        d.phase && timeline.phase
+                          ? d.phase.toLowerCase().includes(timeline.phase.toLowerCase().split(":")[0])
+                          : false
                       );
                       return (
                         <TimelineCard
