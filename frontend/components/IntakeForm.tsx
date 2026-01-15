@@ -448,9 +448,9 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                     <Brain className="w-3 h-3 mr-1" />
                     Suggestions:
                   </span>
-                  {skillSuggestions.map((skill, idx) => (
+                  {skillSuggestions.map((skill) => (
                     <button
-                      key={idx}
+                      key={skill}
                       onClick={() => {
                         const currentSkills = formData.skills.join(", ");
                         const newSkills = currentSkills
@@ -475,7 +475,7 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                     </span>
                     {formData.skills.map((skill, idx) => (
                       <span
-                        key={idx}
+                        key={`${skill}-${idx}`}
                         className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm border border-green-500/30 flex items-center"
                       >
                         <CheckCircle className="w-3 h-3 mr-1" />
@@ -536,9 +536,9 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                     <Brain className="w-3 h-3 mr-1" />
                     Suggestions:
                   </span>
-                  {interestSuggestions.map((interest, idx) => (
+                  {interestSuggestions.map((interest) => (
                     <button
-                      key={idx}
+                      key={interest}
                       onClick={() => {
                         const currentInterests = formData.interests.join(", ");
                         const newInterests = currentInterests
@@ -563,7 +563,7 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                     </span>
                     {formData.interests.map((interest, idx) => (
                       <span
-                        key={idx}
+                        key={`${interest}-${idx}`}
                         className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm border border-green-500/30 flex items-center"
                       >
                         <CheckCircle className="w-3 h-3 mr-1" />
@@ -618,7 +618,7 @@ export default function IntakeForm({ onSubmit, onBack }: IntakeFormProps) {
                     </span>
                     {formData.constraints.map((constraint, idx) => (
                       <span
-                        key={idx}
+                        key={`${constraint}-${idx}`}
                         className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-500/30 flex items-center"
                       >
                         <Shield className="w-3 h-3 mr-1" />

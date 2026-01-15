@@ -15,16 +15,14 @@ export default function SimulationPage() {
       if (stored) {
         const data = JSON.parse(stored);
         setIntakeData(data);
-      } else {
-        // Redirect to home if no intake data
-        router.push("/");
       }
+      // Removed automatic redirect to prevent "jitter" when clicking nav links
+      // Instead, we'll show the "Session Expired" UI below
     } catch (error) {
       console.error("Failed to parse intake data:", error);
-      router.push("/");
     }
     setIsLoading(false);
-  }, [router]);
+  }, []);
 
   if (isLoading) {
     return (

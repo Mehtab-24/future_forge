@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Download, FileText, BarChart3 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import ActionStack from "@/components/ActionStack";
 import { SimulationResult, IntakeData } from "@/types/simulation";
@@ -19,22 +19,18 @@ export default function ActionStackPage() {
     const storedBaseline = sessionStorage.getItem("simulationBaseline");
     const storedIntakeData = sessionStorage.getItem("intakeData");
 
-    if (!storedBaseline || !storedIntakeData) {
-      router.push("/"); // Redirect to home if no data
-      return;
+    if (storedBaseline && storedIntakeData) {
+      try {
+        setBaseline(JSON.parse(storedBaseline));
+        setIntakeData(JSON.parse(storedIntakeData));
+      } catch (error) {
+        console.error("Error parsing stored data:", error);
+      }
     }
-
-    try {
-      setBaseline(JSON.parse(storedBaseline));
-      setIntakeData(JSON.parse(storedIntakeData));
-    } catch (error) {
-      console.error("Error parsing stored data:", error);
-      router.push("/");
-      return;
-    }
-
+    // Removed automatic redirect to prevent "jitter" when clicking nav links
+    // Instead, we'll show the "Session Expired" UI below
     setIsLoading(false);
-  }, [router]);
+  }, []);
 
   const exportToPDF = async () => {
     if (!baseline || !intakeData) return;

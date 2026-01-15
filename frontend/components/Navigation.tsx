@@ -2,9 +2,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Zap, Menu, X, Target, Brain } from "lucide-react";
+import { Home, Zap, Menu, X, Target } from "lucide-react";
 import { NavigationItem } from "@/types/simulation";
-import GoogleTranslate from "./GoogleTranslate";
 
 const navigationItems: NavigationItem[] = [
   {
@@ -47,7 +46,7 @@ export default function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-b border-slate-700/50 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="relative flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative">
@@ -60,7 +59,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2">
             {navigationItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -93,13 +92,8 @@ export default function Navigation() {
             })}
           </div>
 
-          {/* RIGHT SIDE: Translation + Mobile Menu */}
+          {/* RIGHT SIDE: Mobile Menu */}
           <div className="flex items-center space-x-4">
-            {/* DESKTOP: Google Translate Widget */}
-            <div className="hidden md:block">
-              <GoogleTranslate />
-            </div>
-
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -161,13 +155,6 @@ export default function Navigation() {
               </Link>
             );
           })}
-
-          {/* MOBILE: Google Translate Widget */}
-          <div className="pt-2 border-t border-slate-700/30 mt-2">
-            <div className="px-3 py-2">
-              <GoogleTranslate />
-            </div>
-          </div>
         </div>
       </div>
     </nav>

@@ -4,11 +4,9 @@ import {
   Briefcase,
   AlertTriangle,
   TrendingUp,
-  Calendar,
-  Users,
-  Zap,
   Award,
   Clock,
+  Zap,
 } from "lucide-react";
 import { Timeline as TimelineType } from "@/types/simulation";
 
@@ -23,7 +21,6 @@ export default function TimelineCard({
   timeline,
   isVariant = false,
   delta,
-  index = 0,
 }: TimelineCardProps) {
   const cardColor = isVariant
     ? "from-purple-500/10 to-indigo-500/10 border-purple-500/20"
@@ -39,7 +36,7 @@ export default function TimelineCard({
       {/* Phase Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
-          <Calendar className={`w-6 h-6 text-${accentColor}`} />
+          <Clock className={`w-6 h-6 text-${accentColor}`} />
           <h3 className="text-xl font-black text-white ">{timeline.phase}</h3>
         </div>
         <div
@@ -196,7 +193,7 @@ export default function TimelineCard({
                 isVariant ? "purple" : "cyan"
               }-500/30 transition-all`}
             >
-              <Users className="w-3 h-3" />
+              <CheckCircle className="w-3 h-3" />
               <span>{skill}</span>
             </span>
           ))}

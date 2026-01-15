@@ -72,31 +72,40 @@ router.post('/', async (req, res, next) => { // Removed requireAuth middleware
         skill_gaps: ["System Design", "Cloud Infrastructure (AWS/GCP)"],
         action_stack: [
           { 
+            id: "act_1",
             type: "learn", 
             title: "Advanced React Patterns", 
             description: "Deep dive into Compound Components, Render Props, and Custom Hooks.", 
             priority: "high",
             why: "Essential for building maintainable enterprise-grade applications.",
             effort: "high",
-            estimated_weeks: 2 
+            duration_weeks: 2,
+            estimated_weeks: 2,
+            cost_estimate: 50
           },
           { 
+            id: "act_2",
             type: "project", 
             title: "Full-Stack MERN Application", 
             description: "Build and deploy a production-ready social media clone.", 
             priority: "medium",
             why: "Demonstrates end-to-end capability to potential employers.",
             effort: "high",
-            estimated_weeks: 4 
+            duration_weeks: 4,
+            estimated_weeks: 4,
+            cost_estimate: 100
           },
           { 
+            id: "act_3",
             type: "network", 
             title: "Tech Conference Speaking", 
             description: "Submit a CFP to a local meetup or conference.", 
             priority: "low",
             why: "Builds authority and personal brand in the industry.",
             effort: "medium",
-            estimated_weeks: 1 
+            duration_weeks: 1,
+            estimated_weeks: 1,
+            cost_estimate: 200
           }
         ],
         rationale: "Optimized for maximum market value and long-term career growth."

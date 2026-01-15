@@ -171,7 +171,7 @@ export default function ActionStack({
 
           return (
             <div
-              key={action.id}
+              key={action.id || `action-${index}`}
               className="glass-card p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-600/30 transition-all duration-300 hover:scale-[1.01] neon-glow-cyan"
             >
               {/* Action Header */}

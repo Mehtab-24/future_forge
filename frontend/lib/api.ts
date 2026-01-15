@@ -41,28 +41,28 @@ class ApiService {
 
   // Auth endpoints
   async login(email: string, password: string) {
-    return this.request<{ token: string; user: any }>('/auth/login', {
+    return this.request<{ token: string; user: unknown }>('/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     });
   }
 
   async register(name: string, email: string, password: string) {
-    return this.request<{ token: string; user: any }>('/auth/register', {
+    return this.request<{ token: string; user: unknown }>('/auth/register', {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
     });
   }
 
   async getCurrentUser() {
-    return this.request<any>('/auth/me', {
+    return this.request<unknown>('/auth/me', {
       method: 'GET',
     });
   }
 
   // Simulation endpoints (no auth required)
   async simulateBaseline(skills: string[], interests: string[], constraints: string[]) {
-    return this.request<any>('/simulate?mock=1', {
+    return this.request<unknown>('/simulate?mock=1', {
       method: 'POST',
       body: JSON.stringify({
         user_skills: skills,
@@ -82,7 +82,7 @@ class ApiService {
     constraints: string[], 
     oneChange: string
   ) {
-    return this.request<any>('/simulate-variant?mock=1', {
+    return this.request<unknown>('/simulate-variant?mock=1', {
       method: 'POST',
       body: JSON.stringify({
         user_skills: skills,

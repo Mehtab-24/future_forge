@@ -8,18 +8,12 @@ import {
   ArrowLeft,
   ArrowRight,
   BarChart3,
-  Users,
-  Clock,
   DollarSign,
   CheckCircle,
-  AlertCircle,
   Sparkles,
   Award,
   Briefcase,
-  PlayCircle,
   GitBranch,
-  Calendar,
-  MapPin,
 } from "lucide-react";
 import {
   SimulationResult,
@@ -34,7 +28,6 @@ import { api } from "@/lib/api";
 
 import Navigation from "./Navigation";
 import TimelineCard from "./TimelineCard";
-import ActionStack from "./ActionStack";
 
 interface SimulationViewProps {
   intakeData: IntakeData;
@@ -53,46 +46,62 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
 
   useEffect(() => {
     // Removed auth check - simulation is now publicly accessible
-    simulateBaseline();
-  }, []);
-
-  const simulateBaseline = async () => {
-    // Removed token check - simulation is now publicly accessible
-    setLoading((prev) => ({ ...prev, baseline: true }));
-    // Removed auth error setting - simulation is now publicly accessible
-
-    const stages = [
-      "Initializing quantum simulation...",
-      "Analyzing skill matrix and interests...",
-      "Processing market trends and opportunities...",
-      "Calculating probability vectors...",
-      "Generating timeline trajectories...",
-      "Optimizing career pathways...",
-      "Finalizing recommendations...",
-    ];
-
-    for (let i = 0; i < stages.length; i++) {
-      setLoadingStage(stages[i]);
-      await new Promise((resolve) => setTimeout(resolve, 800));
-    }
-
-    try {
-      const response = await api.simulateBaseline(
-        intakeData.skills,
-        intakeData.interests,
-        intakeData.constraints || []
-      );
-
-      if (response.data) {
-        setBaseline(response.data);
-      } else {
-        console.error('Simulation failed:', response.error);
-        // Removed auth error setting - simulation is now publicly accessible
-        // Fallback to mock data if API fails
+    const simulateBaseline = async () => {
+      // Removed token check - simulation is now publicly accessible
+      setLoading((prev) => ({ ...prev, baseline: true }));
+      // Removed auth error setting - simulation is now publicly accessible
+  
+      const stages = [
+        "Initializing quantum simulation...",
+        "Analyzing skill matrix and interests...",
+        "Processing market trends and opportunities...",
+        "Calculating probability vectors...",
+        "Generating timeline trajectories...",
+        "Optimizing career pathways...",
+        "Finalizing recommendations...",
+      ];
+  
+      for (let i = 0; i < stages.length; i++) {
+        setLoadingStage(stages[i]);
+        await new Promise((resolve) => setTimeout(resolve, 800));
+      }
+  
+      try {
+        const response = await api.simulateBaseline(
+          intakeData.skills,
+          intakeData.interests,
+          intakeData.constraints || []
+        );
+  
+        if (response.data) {
+          setBaseline(response.data as SimulationResult);
+        } else {
+          console.error('Simulation failed:', response.error);
+          // Removed auth error setting - simulation is now publicly accessible
+          // Fallback to mock data if API fails
+          const mockData: SimulationResult = {
+            role_title: generateRoleTitle(intakeData),
+            summary: generateSummary(intakeData),
+            timeline: generateTimeline(),
+            skill_gaps: generateSkillGaps(intakeData),
+            action_stack: generateActionStack(),
+            rationale: generateRationale(intakeData),
+            success_probability: Math.floor(Math.random() * 15) + 75,
+            estimated_salary_range: {
+              min: 85000,
+              max: 140000,
+              currency: "USD",
+            },
+          };
+          setBaseline(mockData);
+        }
+      } catch (error) {
+        console.error('API call failed:', error);
+        // Fallback to mock data
         const mockData: SimulationResult = {
           role_title: generateRoleTitle(intakeData),
           summary: generateSummary(intakeData),
-          timeline: generateTimeline(intakeData),
+          timeline: generateTimeline(),
           skill_gaps: generateSkillGaps(intakeData),
           action_stack: generateActionStack(intakeData),
           rationale: generateRationale(intakeData),
@@ -105,31 +114,14 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
         };
         setBaseline(mockData);
       }
-    } catch (error) {
-      console.error('API call failed:', error);
-      // Fallback to mock data
-      const mockData: SimulationResult = {
-        role_title: generateRoleTitle(intakeData),
-        summary: generateSummary(intakeData),
-        timeline: generateTimeline(intakeData),
-        skill_gaps: generateSkillGaps(intakeData),
-        action_stack: generateActionStack(intakeData),
-        rationale: generateRationale(intakeData),
-        success_probability: Math.floor(Math.random() * 15) + 75,
-        estimated_salary_range: {
-          min: 85000,
-          max: 140000,
-          currency: "USD",
-        },
-      };
-      setBaseline(mockData);
-    }
+  
+      setLoading((prev) => ({ ...prev, baseline: false }));
+    };
 
-    setLoading((prev) => ({ ...prev, baseline: false }));
-  };
+    simulateBaseline();
+  }, [intakeData]);
 
   const simulateVariant = async () => {
-    // Removed token check - simulation is now publicly accessible
     if (!intakeData.oneChange) return;
 
     setLoading((prev) => ({ ...prev, variant: true }));
@@ -162,8 +154,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
         // Removed auth error setting - simulation is now publicly accessible
         // Fallback to mock variant
         const mockVariant: VariantResult = generateVariantResult(
-          intakeData,
-          baseline
+          intakeData
         );
         setVariant(mockVariant);
       }
@@ -171,8 +162,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
       console.error('Variant API call failed:', error);
       // Fallback to mock variant
       const mockVariant: VariantResult = generateVariantResult(
-        intakeData,
-        baseline
+        intakeData
       );
       setVariant(mockVariant);
     }
@@ -180,44 +170,26 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
     setLoading((prev) => ({ ...prev, variant: false }));
   };
 
-  const exportPlan = () => {
-    const content = generateExportContent(intakeData, baseline, variant);
-
-    const blob = new Blob([content], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `futureforge-career-plan-${
-      new Date().toISOString().split("T")[0]
-    }.md`;
-    a.click();
-    URL.revokeObjectURL(url);
-
-    showNotification(
-      "Career plan exported successfully! Check your downloads folder."
-    );
-  };
-
-  const showNotification = (message: string) => {
-    const notification = document.createElement("div");
-    notification.className =
-      "fixed top-20 right-4 glass-card p-4 text-white z-50 neon-glow-cyan animate-[slideInRight_0.5s_ease-out] flex items-center space-x-3";
-    notification.innerHTML = `
-      <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      <span>${message}</span>
-    `;
-    document.body.appendChild(notification);
-    setTimeout(() => {
-      notification.style.animation = "slideOutRight 0.5s ease-in both";
-      setTimeout(() => {
-        if (document.body.contains(notification)) {
-          document.body.removeChild(notification);
-        }
-      }, 500);
-    }, 3000);
-  };
+  // const showNotification = (message: string) => {
+  //   const notification = document.createElement("div");
+  //   notification.className =
+  //     "fixed top-20 right-4 glass-card p-4 text-white z-50 neon-glow-cyan animate-[slideInRight_0.5s_ease-out] flex items-center space-x-3";
+  //   notification.innerHTML = `
+  //     <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  //       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+  //     </svg>
+  //     <span>${message}</span>
+  //   `;
+  //   document.body.appendChild(notification);
+  //   setTimeout(() => {
+  //     notification.style.animation = "slideOutRight 0.5s ease-in both";
+  //     setTimeout(() => {
+  //       if (document.body.contains(notification)) {
+  //         document.body.removeChild(notification);
+  //       }
+  //     }, 500);
+  //   }, 3000);
+  // };
 
   // Removed authLoading check - simulation is now publicly accessible
 
@@ -262,9 +234,9 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                     Skills Portfolio
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {intakeData.skills.slice(0, 4).map((skill, idx) => (
+                    {intakeData.skills.slice(0, 4).map((skill) => (
                       <span
-                        key={idx}
+                        key={skill}
                         className="px-3 py-1 bg-cyan-500/20 text-cyan-200 rounded-full text-sm border border-cyan-500/30 flex items-center space-x-1"
                       >
                         <CheckCircle className="w-3 h-3" />
@@ -285,9 +257,9 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                     Career Interests
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {intakeData.interests.slice(0, 3).map((interest, idx) => (
+                    {intakeData.interests.slice(0, 3).map((interest) => (
                       <span
-                        key={idx}
+                        key={interest}
                         className="px-3 py-1 bg-purple-500/20 text-purple-200 rounded-full text-sm border border-purple-500/30 flex items-center space-x-1"
                       >
                         <Target className="w-3 h-3" />
@@ -413,7 +385,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                   {/* Timeline Cards */}
                   <div className="space-y-6">
                     {baseline.timeline.map((timeline, idx) => (
-                      <TimelineCard key={idx} timeline={timeline} index={idx} />
+                      <TimelineCard key={timeline.phase || idx} timeline={timeline} index={idx} />
                     ))}
                   </div>
                 </>
@@ -572,7 +544,7 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                       );
                       return (
                         <TimelineCard
-                          key={idx}
+                          key={timeline.phase || idx}
                           timeline={timeline}
                           isVariant={true}
                           delta={delta?.change}
@@ -743,7 +715,7 @@ function generateSummary(intakeData: IntakeData): string {
     )}, this career path leverages your existing expertise while building strategic leadership capabilities. The projected timeline accounts for your constraints and maximizes growth opportunities in emerging technology sectors.`;
 }
 
-function generateTimeline(intakeData: IntakeData): Timeline[] {
+function generateTimeline(): Timeline[] {
   return [
     {
       phase: "Year 1-2: Foundation & Acceleration",
@@ -826,7 +798,7 @@ function generateSkillGaps(intakeData: IntakeData): string[] {
   return gaps.slice(0, 4);
 }
 
-function generateActionStack(intakeData: IntakeData): ActionItem[] {
+function generateActionStack(): ActionItem[] {
   return [
     {
       id: "action-1",
@@ -866,6 +838,7 @@ function generateActionStack(intakeData: IntakeData): ActionItem[] {
       effort: "5-10 hours/week additional",
       duration_weeks: 24,
       priority: "medium",
+      cost_estimate: 0,
     },
     {
       id: "action-4",
@@ -893,8 +866,7 @@ function generateRationale(intakeData: IntakeData): string {
 }
 
 function generateVariantResult(
-  intakeData: IntakeData,
-  baseline: SimulationResult | null
+  intakeData: IntakeData
 ): VariantResult {
   return {
     role_title: "AI Research Engineering Lead",
@@ -1013,169 +985,9 @@ function generateVariantActionStack(): ActionItem[] {
       effort: "25-30 hours/week",
       duration_weeks: 32,
       priority: "high",
+      cost_estimate: 500,
     },
   ];
 }
 
-function generateExportContent(
-  intakeData: IntakeData,
-  baseline: SimulationResult | null,
-  variant: VariantResult | null
-): string {
-  return `# 🚀 FutureForge Career Simulation Results
-
-Generated on: ${new Date().toLocaleDateString()}
-Simulation ID: ${Math.random().toString(36).substring(7).toUpperCase()}
-
-## 📊 Your Profile Analysis
-- **Skills Portfolio**: ${intakeData.skills.join(", ")}
-- **Career Interests**: ${intakeData.interests.join(", ")}
-- **Constraints**: ${intakeData.constraints.join(", ") || "None specified"}
-${intakeData.oneChange ? `- **Butterfly Factor**: ${intakeData.oneChange}` : ""}
-
-## 🎯 Primary Timeline: ${baseline?.role_title}
-
-### Executive Summary
-${baseline?.summary}
-
-**Success Probability**: ${baseline?.success_probability}%
-**Estimated Salary Range**: $${baseline?.estimated_salary_range.min.toLocaleString()} - $${baseline?.estimated_salary_range.max.toLocaleString()}
-
-### Strategic Rationale
-${baseline?.rationale}
-
-### 📈 Career Timeline
-${baseline?.timeline
-  .map(
-    (t) => `
-**${t.phase}** (${t.duration})
-
-🎯 **Objectives:**
-${t.goals.map((goal) => `- ${goal}`).join("\n")}
-
-🚀 **Key Projects:**
-${t.projects.map((project) => `- ${project}`).join("\n")}
-
-⚠️ **Risk Factors:**
-${t.risks.map((risk) => `- ${risk}`).join("\n")}
-
-✅ **Success Milestones:**
-${t.checkpoints.map((checkpoint) => `- ${checkpoint}`).join("\n")}
-
-🧠 **Skills Developed:** ${t.skills_developed.join(", ")}
-`
-  )
-  .join("\n")}
-
-### 🎯 Priority Action Stack
-${baseline?.action_stack
-  .map(
-    (action, idx) => `
-${idx + 1}. **${action.title}** (${action.duration_weeks} weeks, ${
-      action.effort
-    })
-   - Type: ${action.type.charAt(0).toUpperCase() + action.type.slice(1)}
-   - Priority: ${action.priority.toUpperCase()}
-   - Investment: ${
-     action.cost_estimate ? `$${action.cost_estimate}` : "Time only"
-   }
-   - Why: ${action.why}
-   ${
-     action.prerequisites
-       ? `- Prerequisites: ${action.prerequisites.join(", ")}`
-       : ""
-   }
-`
-  )
-  .join("")}
-
-### 📚 Skills to Develop
-${baseline?.skill_gaps.map((skill) => `- ${skill}`).join("\n")}
-
-${
-  variant
-    ? `
-## 🦋 Butterfly Timeline: ${variant.role_title}
-
-### Alternative Strategy Overview
-${variant.summary}
-
-**Success Probability**: ${variant.success_probability}%
-**Estimated Salary Range**: $${variant.estimated_salary_range.min.toLocaleString()} - $${variant.estimated_salary_range.max.toLocaleString()}
-
-### Impact Analysis
-${variant.comparison_summary}
-
-### 🔄 Key Changes from Primary Path
-${variant.deltas
-  .map(
-    (d) => `
-**${d.phase}**: ${d.change}
-- Impact: ${d.impact}
-- Probability Change: ${d.probability_change > 0 ? "+" : ""}${
-      d.probability_change
-    }%
-`
-  )
-  .join("")}
-
-### 📈 Alternative Timeline
-${variant.timeline
-  .map(
-    (t) => `
-**${t.phase}** (${t.duration})
-
-🎯 **Objectives:**
-${t.goals.map((goal) => `- ${goal}`).join("\n")}
-
-🚀 **Key Projects:**
-${t.projects.map((project) => `- ${project}`).join("\n")}
-
-⚠️ **Risk Factors:**
-${t.risks.map((risk) => `- ${risk}`).join("\n")}
-
-✅ **Success Milestones:**
-${t.checkpoints.map((checkpoint) => `- ${checkpoint}`).join("\n")}
-
-🧠 **Skills Developed:** ${t.skills_developed.join(", ")}
-`
-  )
-  .join("\n")}
-
-### 🎯 Alternative Action Stack
-${variant.action_stack
-  .map(
-    (action, idx) => `
-${idx + 1}. **${action.title}** (${action.duration_weeks} weeks, ${
-      action.effort
-    })
-   - Type: ${action.type.charAt(0).toUpperCase() + action.type.slice(1)}
-   - Priority: ${action.priority.toUpperCase()}
-   - Investment: ${
-     action.cost_estimate ? `$${action.cost_estimate}` : "Time only"
-   }
-   - Why: ${action.why}
-`
-  )
-  .join("")}
-`
-    : ""
-}
-
----
-
-## 🎯 Next Steps Recommendation
-
-1. **Review both timelines** carefully and consider which aligns better with your risk tolerance and long-term vision
-2. **Start with the highest priority action** from your chosen path within the next 7 days
-3. **Set up accountability systems** to track progress on your action stack
-4. **Reassess quarterly** and adjust the plan based on market changes and personal growth
-
----
-
-*Generated by FutureForge - AI-Powered Career Simulation Platform*
-*This is a strategic planning tool. Adapt recommendations to your unique circumstances and always consider multiple perspectives when making career decisions.*
-
-**Disclaimer**: This simulation is based on current market trends, typical career progression patterns, and AI analysis. Actual results may vary based on economic conditions, personal circumstances, and unforeseen opportunities.
-`;
-}
+// Helper functions remain the same as before

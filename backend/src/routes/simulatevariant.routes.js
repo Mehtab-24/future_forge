@@ -44,35 +44,73 @@ router.post('/', async (req, res, next) => { // Removed requireAuth middleware
 
     if (isMock(req)) {
       const mock = {
-        role_title: "Frontend Developer (Variant Mock)",
-        success_probability: 80,
-        estimated_salary_range: { min: 85000, max: 125000 },
-        summary: "A specialized frontend path focusing on UI/UX patterns.",
+        role_title: "Product-Minded Engineer (Variant Mock)",
+        success_probability: 88,
+        estimated_salary_range: { min: 90000, max: 135000 },
+        summary: "A specialized path merging technical prowess with product strategy. Ideal for roles in high-growth startups or product-led growth companies.",
         timeline: [
           { 
-            phase: "Week 1", 
-            duration: "1 week",
-            goals: ["Setup"], 
-            milestones: ["Scaffold"], 
-            projects: ["Component Library"],
-            risks: ["Time"], 
-            checkpoints: ["Repo ready"],
-            skills_developed: ["UI Design", "Figma"]
+            phase: "Phase 1: Product & UX Focus", 
+            duration: "Weeks 1-4",
+            goals: ["Understand User Psychology", "Master Figma for Devs"], 
+            milestones: ["Design System Implementation", "User Journey Mapping"], 
+            projects: ["Interactive Product Prototype"],
+            risks: ["Losing Technical Depth", "Scope Creep"], 
+            checkpoints: ["Conduct 5 User Interviews", "Prototype validated"],
+            skills_developed: ["UI/UX Design", "Figma", "User Research"]
+          },
+          { 
+            phase: "Phase 2: MVP & Iteration", 
+            duration: "Weeks 5-8",
+            goals: ["Rapid Prototyping", "A/B Testing Frameworks"], 
+            milestones: ["Launch MVP to Beta Users", "Implement Feature Flags"], 
+            projects: ["Growth Hacking Dashboard"],
+            risks: ["Technical Debt accumulation", "Burnout"], 
+            checkpoints: ["100 Active Users", "Weekly Release Cycle"],
+            skills_developed: ["Analytics", "Feature Flagging", "Growth Engineering"]
           }
         ],
-        skill_gaps: ["Testing"],
-        action_stack: [{ 
-          type: "practice", 
-          title: "UI patterns", 
-          description: "Build small comps", 
-          priority: "high",
-          why: "Key for role",
-          effort: "medium",
-          estimated_weeks: 1 
-        }],
-        rationale: "Minor shift based on one_change",
-        deltas: [{ phase: "Week 1", field: "milestones", change: "More UI-focused tasks" }],
-        comparison_summary: "This path offers a more specialized route into frontend development with a higher focus on design systems."
+        skill_gaps: ["Data Analysis (SQL)", "Marketing Automation"],
+        action_stack: [
+          { 
+            id: "var_act_1",
+            type: "practice", 
+            title: "Design Systems Engineering", 
+            description: "Build a reusable component library with Storybook.", 
+            priority: "high",
+            why: "Bridges the gap between design and engineering.",
+            effort: "medium",
+            duration_weeks: 3,
+            estimated_weeks: 3,
+            cost_estimate: 150
+          },
+          { 
+            id: "var_act_2",
+            type: "learn", 
+            title: "Product Metrics", 
+            description: "Master Mixpanel or Amplitude for user tracking.", 
+            priority: "medium",
+            why: "Data-driven decisions are key for product engineers.",
+            effort: "low",
+            duration_weeks: 1,
+            estimated_weeks: 1,
+            cost_estimate: 50
+          }
+        ],
+        rationale: "Shift towards product impact rather than pure code optimization.",
+        deltas: [
+          { 
+            phase: "Phase 1: Product & UX Focus", 
+            field: "goals", 
+            change: "Shift from 'Architecture' to 'User Psychology'" 
+          },
+          { 
+            phase: "Phase 1: Product & UX Focus", 
+            field: "projects", 
+            change: "Replaced 'SaaS Dashboard' with 'Interactive Prototype'" 
+          }
+        ],
+        comparison_summary: "This variant prioritizes product impact and user experience over deep system architecture. It offers faster feedback loops but requires broader soft skills."
       };
       if (streaming) {
         sseInit(res);

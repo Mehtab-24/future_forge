@@ -74,13 +74,16 @@ class TranslationService {
     }
 
     // Define the callback function
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).googleTranslateElementInit = () => {
       try {
         // Initialize Google Translate
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         new (window as any).google.translate.TranslateElement({
           pageLanguage: 'en',
           includedLanguages: languages.map(lang => lang.code).join(','),
           autoDisplay: false,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE
         }, 'google_translate_element');
 
