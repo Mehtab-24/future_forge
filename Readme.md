@@ -1,227 +1,472 @@
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/main/icons/folder-app.svg" width="100" alt="Future Forge Logo">
+
 # Future Forge
 
-A full‑stack project combining a secure Node.js/Express API with a Next.js (React) frontend and MongoDB, containerized with Docker for easy local development and deployment.
+**Next-Generation Full-Stack Platform**
 
-- Backend: Express, MongoDB (Mongoose), JWT auth, CORS, Helmet, rate limiting, request logging
-- Frontend: Next.js 15, React 19, Tailwind CSS 4, lucide-react
-- AI integrations: Google Generative AI (Gemini) and OpenAI clients (optional)
-- Dockerized: Multi-service setup with docker-compose (frontend, API, MongoDB)
+Build modern web applications with enterprise-grade security and AI capabilities
 
-## Table of Contents
-- Features
-- Tech Stack
-- Quick Start
-- Local Development (without Docker)
-- Run with Docker Compose
-- Environment Variables
-- API Reference
-- Project Structure
-- Deployment
-- Troubleshooting
-- License
+[🚀 Live Demo](https://future-forge-six.vercel.app) • [📖 Documentation](#documentation) • [🐛 Report Issue](https://github.com/Mehtab-24/future_forge/issues)
 
-## Features
-- User authentication with JWT (register, login, get current user)
-- Secure defaults (Helmet, CORS, rate limiting)
-- Health check endpoint for orchestration
-- Production-ready Dockerfiles for both API and frontend
-- Centralized configuration via environment variables
+<br/>
 
-## Tech Stack
-- Backend: Node.js, Express, Mongoose, JWT, zod, dotenv, morgan, express-rate-limit, helmet, cors
-- Frontend: Next.js, React, Tailwind CSS, lucide-react
-- Database: MongoDB
-- DevOps: Docker, docker-compose
-- Optional AI: @google/generative-ai, openai, @google/genai (frontend)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js_15-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-## Quick Start
-Prerequisites:
-- Node.js 18+ (Node 20 recommended)
-- npm
-- Docker and Docker Compose (optional, for containerized setup)
-- MongoDB (only if running without Docker)
+</div>
 
-Clone:
+<br/>
+
+---
+
+## 📖 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Quick Start](#-quick-start)
+- [Documentation](#-documentation)
+- [API Reference](#-api-reference)
+- [Deployment](#-deployment)
+- [Contributing](#-contributing)
+
+---
+
+## 🎯 Overview
+
+**Future Forge** is a production-ready full-stack application that combines cutting-edge web technologies with enterprise security standards. Built for developers who demand performance, scalability, and maintainability. 
+
+<div align="center">
+
+### Why Future Forge? 
+
+</div>
+
+<table>
+<tr>
+<td width="33%" align="center">
+
+### 🔐 Secure
+Enterprise-grade security with JWT authentication, rate limiting, and security headers
+
+</td>
+<td width="33%" align="center">
+
+### ⚡ Fast
+Optimized performance with Next.js 15, React Server Components, and efficient caching
+
+</td>
+<td width="33%" align="center">
+
+### 🎨 Modern
+Beautiful UI with Tailwind CSS 4, responsive design, and smooth animations
+
+</td>
+</tr>
+<tr>
+<td width="33%" align="center">
+
+### 🤖 AI-Powered
+Integrated support for Google Gemini and OpenAI APIs
+
+</td>
+<td width="33%" align="center">
+
+### 🐳 Containerized
+Full Docker support for consistent development and deployment
+
+</td>
+<td width="33%" align="center">
+
+### 📦 Scalable
+Microservices architecture ready for horizontal scaling
+
+</td>
+</tr>
+</table>
+
+---
+
+## ✨ Features
+
+<table>
+<tr>
+<td>
+
+**Authentication & Security**
+- 🔑 JWT-based authentication
+- 🛡️ Password hashing with bcrypt
+- 🚦 Rate limiting protection
+- 🔒 Security headers (Helmet)
+- 🌐 CORS configuration
+
+</td>
+<td>
+
+**Frontend Experience**
+- ⚛️ React 19 with Next.js 15
+- 🎨 Tailwind CSS 4 styling
+- 📱 Fully responsive design
+- 🌙 Modern UI components
+- ⚡ Server-side rendering
+
+</td>
+</tr>
+<tr>
+<td>
+
+**Backend Architecture**
+- 🚀 RESTful API design
+- 📊 MongoDB with Mongoose
+- ✅ Request validation (Zod)
+- 📝 Request logging (Morgan)
+- 💚 Health check endpoints
+
+</td>
+<td>
+
+**Developer Experience**
+- 🐳 Docker containerization
+- 🔄 Hot module replacement
+- 📚 Comprehensive documentation
+- 🧪 API testing suite
+- 🛠️ TypeScript support
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🛠️ Tech Stack
+
+<div align="center">
+
+### Frontend
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+### Backend
+![Node. js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
+
+### DevOps & Tools
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+</div>
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+Ensure you have the following installed: 
+
 ```bash
-git clone https://github.com/Mehtab-24/future_forge.git
+node --version  # v18.0.0 or higher
+npm --version   # v9.0.0 or higher
+docker --version # (optional)
+```
+
+### Installation
+
+**Step 1: Clone the Repository**
+
+```bash
+git clone https://github.com/Mehtab-24/future_forge. git
 cd future_forge
 ```
 
-Create a .env file in the repo root:
+**Step 2: Environment Configuration**
+
+Create a `.env` file in the root directory:
+
 ```env
 # Server
 PORT=5000
+
+# Database
 MONGODB_URI=mongodb://localhost:27017/future_forge
 
-# Auth
-JWT_SECRET=change_me_to_a_strong_secret
+# Authentication
+JWT_SECRET=your_secret_key_here
 JWT_EXPIRES_IN=7d
 
-# CORS (comma-separated)
-CORS_ORIGINS=http://localhost:3000,http://localhost:5173
-
-# Rate limiting
-RATE_LIMIT_WINDOW_MIN=15
-RATE_LIMIT_MAX=100
-
-# Optional AI keys (only if used)
-GEMINI_API_KEY=
+# CORS
+CORS_ORIGINS=http://localhost:3000
 ```
 
-## Local Development (without Docker)
+**Step 3: Choose Your Setup**
 
-Backend (API):
+<details>
+<summary><b>🐳 Docker Setup (Recommended)</b></summary>
+
 ```bash
-# from repo root
-npm install
-npm run dev
-# API runs at http://localhost:5000
-# Health check: http://localhost:5000/api/v1/health
-```
+# Start all services
+docker-compose up -d
 
-Frontend (Next.js):
-```bash
-cd frontend
-npm install
+# View logs
+docker-compose logs -f
 
-# Ensure your frontend knows where the API is:
-# export NEXT_PUBLIC_API_URL=http://localhost:5000
-# or add it to a .env.local file in the frontend directory
-
-npm run dev
-# Frontend at http://localhost:3000
-```
-
-## Run with Docker Compose
-The repository provides production-ready Dockerfiles and a compose file that runs:
-- frontend (Next.js) on port 3000
-- api (Express) on port 5000
-- mongo (MongoDB) on port 27017
-
-Start services:
-```bash
-docker-compose up --build
-```
-
-Access:
-- Frontend: http://localhost:3000
-- API: http://localhost:5000
-- API Health: http://localhost:5000/api/v1/health
-
-Stop services:
-```bash
+# Stop services
 docker-compose down
 ```
 
-Logs:
+**Access Points:**
+- 🌐 Frontend: http://localhost:3000
+- 🔌 API: http://localhost:5000
+- 💚 Health:  http://localhost:5000/api/v1/health
+
+</details>
+
+<details>
+<summary><b>💻 Local Development</b></summary>
+
+**Backend:**
 ```bash
+npm install
+npm run dev
+```
+
+**Frontend:**
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+**Access Points:**
+- 🌐 Frontend:  http://localhost:3000
+- 🔌 API: http://localhost:5000
+
+</details>
+
+---
+
+## 📚 Documentation
+
+### Project Structure
+
+```
+future_forge/
+├── 📂 src/
+│   ├── config/           # Configuration files
+│   ├── controllers/      # Business logic
+│   ├── middleware/       # Express middleware
+│   ├── models/          # Database schemas
+│   ├── routes/          # API endpoints
+│   └── utils/           # Helper functions
+│
+├── 📂 frontend/
+│   ├── app/             # Next.js pages (App Router)
+│   ├── components/      # React components
+│   └── public/          # Static assets
+│
+├── 🐳 docker-compose.yml
+├── 📄 Dockerfile
+└── 📦 package.json
+```
+
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server with hot reload |
+| `npm start` | Start production server |
+| `npm run build` | Build for production |
+| `npm run lint` | Run code linter |
+
+---
+
+## 🔌 API Reference
+
+### Base URL
+
+```
+Local:   http://localhost:5000/api/v1
+Production: https://your-domain.com/api/v1
+```
+
+### Endpoints
+
+#### 🔐 Authentication
+
+```http
+POST   /auth/register    # Register new user
+POST   /auth/login       # User login
+GET    /auth/me          # Get current user (Protected)
+```
+
+#### 👥 Users
+
+```http
+GET    /users            # List all users (Protected)
+GET    /users/:id        # Get specific user (Protected)
+```
+
+#### 💚 Health
+
+```http
+GET    /health           # API health status
+```
+
+### Example Usage
+
+```bash
+# Register
+curl -X POST http://localhost:5000/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John Doe","email":"john@example.com","password":"securepass123"}'
+
+# Login
+curl -X POST http://localhost:5000/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"john@example.com","password":"securepass123"}'
+
+# Get Profile (with token)
+curl http://localhost:5000/api/v1/auth/me \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+---
+
+## 🌍 Environment Variables
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|: --------:|
+| `PORT` | Server port | `5000` | ✅ |
+| `MONGODB_URI` | Database connection string | - | ✅ |
+| `JWT_SECRET` | Secret for JWT signing | - | ✅ |
+| `JWT_EXPIRES_IN` | Token expiration time | `7d` | ❌ |
+| `CORS_ORIGINS` | Allowed origins | - | ✅ |
+| `NEXT_PUBLIC_API_URL` | API URL for frontend | - | ✅ |
+
+> ⚠️ **Security Note:** Never commit sensitive credentials to version control.  Use environment variables or secrets management.
+
+---
+
+## 🚢 Deployment
+
+### Deployment Options
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+### Frontend Deployment
+
+**Recommended Platforms:**
+- [Vercel](https://vercel.com) ⭐
+- [Netlify](https://netlify.com)
+- [AWS Amplify](https://aws.amazon.com/amplify/)
+
+**Environment Variables:**
+```env
+NEXT_PUBLIC_API_URL=https://api.yourdomain.com
+```
+
+</td>
+<td align="center" width="50%">
+
+### Backend Deployment
+
+**Recommended Platforms:**
+- [Railway](https://railway.app) ⭐
+- [Render](https://render.com)
+- [AWS](https://aws.amazon.com)
+- [Google Cloud](https://cloud.google.com)
+
+**Requirements:**
+- Node.js 18+
+- MongoDB instance
+
+</td>
+</tr>
+</table>
+
+### Docker Deployment
+
+```bash
+# Build images
+docker-compose build
+
+# Deploy to production
+docker-compose -f docker-compose.yml up -d
+
+# View logs
 docker-compose logs -f
 ```
 
-See also: [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+### Production Checklist
 
-## Environment Variables
-The API reads configuration from environment variables (via .env):
+- [ ] Set `NODE_ENV=production`
+- [ ] Use secure, random `JWT_SECRET`
+- [ ] Configure production database
+- [ ] Enable HTTPS/SSL
+- [ ] Set up monitoring and logging
+- [ ] Configure automated backups
+- [ ] Review security settings
+- [ ] Set up CI/CD pipeline
 
-- PORT (default 5000)
-- MONGODB_URI (e.g., mongodb://localhost:27017/future_forge)
-- JWT_SECRET (required; use a strong random string)
-- JWT_EXPIRES_IN (default 7d)
-- CORS_ORIGINS (comma-separated origins)
-- RATE_LIMIT_WINDOW_MIN (default 15)
-- RATE_LIMIT_MAX (default 100)
-- GEMINI_API_KEY (optional)
+---
 
-Docker Compose sets sensible defaults and wires services together (see [docker-compose.yml](./docker-compose.yml)).
+## 🤝 Contributing
 
-Frontend:
-- NEXT_PUBLIC_API_URL (e.g., http://localhost:5000 or http://api:5000 in Docker)
+We welcome contributions! Here's how you can help:
 
-Security note: Never commit real secrets to version control. Rotate JWT_SECRET for production and use a secrets manager.
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. **Open** a Pull Request
 
-## API Reference
+### Development Guidelines
 
-Base URL (local):
-- http://localhost:5000
+- Follow existing code style
+- Write meaningful commit messages
+- Update documentation as needed
+- Test your changes thoroughly
 
-Auth:
-- POST /api/v1/auth/register — Register a user (name, email, password)
-- POST /api/v1/auth/login — Login (email, password) → returns JWT
-- GET /api/v1/auth/me — Get current user (requires Bearer token)
+---
 
-Users:
-- GET /api/v1/users — List users (auth)
-- GET /api/v1/users/:id — Get user by id (auth)
+## 📄 License
 
-Health:
-- GET /api/v1/health — Health check (no auth)
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-Example requests:
+---
 
-Register:
-```bash
-curl -X POST http://localhost:5000/api/v1/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Ada Lovelace","email":"ada@example.com","password":"Str0ngP@ss!"}'
-```
+## 🙏 Acknowledgments
 
-Login:
-```bash
-curl -X POST http://localhost:5000/api/v1/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"ada@example.com","password":"Str0ngP@ss!"}'
-```
+Built with amazing open-source technologies: 
 
-Me:
-```bash
-curl http://localhost:5000/api/v1/auth/me \
-  -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
-```
+- [Next.js](https://nextjs.org/) - The React Framework
+- [Express](https://expressjs.com/) - Fast, minimalist web framework
+- [MongoDB](https://www.mongodb.com/) - Document database
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 
-Tip: You can also use the provided [request.http](./request.http) file with VS Code REST Client/HTTPY for quick testing.
+---
 
-## Project Structure
-High-level overview:
-```
-.
-├─ Dockerfile                # Backend container
-├─ docker-compose.yml        # Frontend + API + Mongo orchestration
-├─ DEPLOYMENT_GUIDE.md       # Detailed Docker deployment guide
-├─ deploy.sh                 # Helper script for Docker deployment
-├─ package.json              # Backend package/commands
-├─ README.md                 # You are here
-├─ request.http              # API request samples for testing
-├─ src/                      # Backend source (server, routes, models, controllers)
-└─ frontend/
-   ├─ Dockerfile             # Frontend container (builder/runner)
-   ├─ package.json           # Frontend package/commands
-   ├─ public/                # Static assets
-   └─ app/                   # Next.js App Router code
-```
+<div align="center">
 
-Key scripts:
-- Backend (root):
-  - npm run dev — start API with nodemon
-  - npm start — start API (production)
-- Frontend (frontend/):
-  - npm run dev — Next.js dev server
-  - npm run build — build
-  - npm start — production server
-  - npm run lint — linting
+### 🌟 Star this repo if you find it helpful!
 
-## Deployment
-- Docker: Use the provided Dockerfiles and [docker-compose.yml](./docker-compose.yml)
-- Guide: See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for production tips (NODE_ENV=production, reverse proxy/SSL, secrets management, health checks)
-- Frontend can be deployed to any Node-capable environment or platforms like Vercel (ensure NEXT_PUBLIC_API_URL points to your API)
-- API can be deployed to any container platform or Node runtime with MongoDB connectivity
+**Made with ❤️ by [Mehtab-24](https://github.com/Mehtab-24)**
 
-## Troubleshooting
-- Ports in use: Change ports in docker-compose.yml or stop conflicting services
-- API can’t reach Mongo: Ensure Mongo is healthy (compose waits with healthcheck) and MONGODB_URI is correct
-- CORS issues: Verify CORS_ORIGINS includes your frontend origin(s)
-- Health checks:
-  - API: http://localhost:5000/api/v1/health
-  - Frontend: http://localhost:3000
+[⬆ Back to Top](#future-forge)
 
-## License
-MIT
+</div>
