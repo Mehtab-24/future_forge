@@ -38,6 +38,16 @@ function testRoute(path, name) {
           
           const missing = [];
           
+          // Action Stack Checks
+          if (!json.action_stack || json.action_stack.length === 0) {
+            missing.push('action_stack');
+          } else {
+            const action = json.action_stack[0];
+            if (!action.priority) missing.push('action_stack[0].priority');
+            if (!action.why) missing.push('action_stack[0].why');
+            if (!action.effort) missing.push('action_stack[0].effort');
+          }
+
           // Common checks
           if (!json.timeline || json.timeline.length === 0) missing.push('timeline');
           if (json.timeline && json.timeline[0]) {

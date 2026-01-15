@@ -61,7 +61,15 @@ router.post('/', async (req, res, next) => { // Removed requireAuth middleware
           }
         ],
         skill_gaps: ["Testing"],
-        action_stack: [{ type: "practice", title: "UI patterns", description: "Build small comps", estimated_weeks: 1 }],
+        action_stack: [{ 
+          type: "practice", 
+          title: "UI patterns", 
+          description: "Build small comps", 
+          priority: "high",
+          why: "Key for role",
+          effort: "medium",
+          estimated_weeks: 1 
+        }],
         rationale: "Minor shift based on one_change",
         deltas: [{ phase: "Week 1", field: "milestones", change: "More UI-focused tasks" }],
         comparison_summary: "This path offers a more specialized route into frontend development with a higher focus on design systems."

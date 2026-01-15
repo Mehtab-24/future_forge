@@ -200,7 +200,7 @@ export default function ActionStack({
                   className={`px-3 py-1 rounded-full text-xs font-bold flex items-center space-x-1 border ${priorityConfig.badge}`}
                 >
                   {priorityConfig.icon}
-                  <span>{action.priority.toUpperCase()}</span>
+                  <span>{(action.priority || 'medium').toUpperCase()}</span>
                 </div>
               </div>
 

@@ -60,7 +60,15 @@ router.post('/', async (req, res, next) => { // Removed requireAuth middleware
           }
         ],
         skill_gaps: ["Testing"],
-        action_stack: [{ type: "learn", title: "React basics", description: "Docs & tutorials", estimated_weeks: 1 }],
+        action_stack: [{ 
+          type: "learn", 
+          title: "React basics", 
+          description: "Docs & tutorials", 
+          priority: "high",
+          why: "Core requirement",
+          effort: "medium",
+          estimated_weeks: 1 
+        }],
         rationale: "Starter path for demo"
       };
       if (streaming) {

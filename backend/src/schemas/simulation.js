@@ -15,6 +15,9 @@ const actionItem = z.object({
   type: z.string().min(1),
   title: z.string().min(1),
   description: z.string().min(1),
+  priority: z.string().min(1),
+  why: z.string().min(1),
+  effort: z.string().min(1),
   estimated_weeks: z.number().int().min(0),
 });
 
@@ -67,6 +70,9 @@ function schemaTextForPrompt() {
       "type": string,
       "title": string,
       "description": string,
+      "priority": "high" | "medium" | "low",
+      "why": string,
+      "effort": "high" | "medium" | "low",
       "estimated_weeks": number
     }
   ],
@@ -96,6 +102,9 @@ function variantSchemaTextForPrompt() {
       "type": string,
       "title": string,
       "description": string,
+      "priority": "high" | "medium" | "low",
+      "why": string,
+      "effort": "high" | "medium" | "low",
       "estimated_weeks": number
     }
   ],
