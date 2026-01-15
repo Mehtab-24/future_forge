@@ -22,21 +22,17 @@ You can deploy the backend to **Vercel** (recommended for unity) or **Netlify**.
         *   `CORS_ORIGINS`: Your frontend URL (e.g., `https://future-forge-frontend.vercel.app`). You can add `*` temporarily for testing.
         *   `NODE_ENV`: `production`
 6.  Click **"Deploy"**.
-7.  **Copy the assigned Domain** (e.g., `https://future-forge-backend.vercel.app`). You will need this for the frontend.
+7.  **Copy the assigned Domain**. 
+    *   **Success!** You have already deployed this to: `https://futureforge01.netlify.app`
 
-### Option B: Deploy to Netlify
+### Option B: Deploy to Netlify (ALREADY COMPLETED)
 
-1.  Log in to [Netlify](https://app.netlify.com).
-2.  Click **"Add new site"** -> **"Import an existing project"**.
-3.  Select **GitHub** and choose your `future_forge` repository.
-4.  **Configure Site**:
-    *   **Base directory**: `backend`
-    *   **Build command**: `npm install` (Netlify automatically detects `netlify.toml` but good to confirm).
-    *   **Publish directory**: `public` (or leave default if `netlify.toml` handles it).
-5.  **Environment Variables**:
-    *   Go to **Site configuration** -> **Environment variables**.
-    *   Add the same variables as above (`MONGODB_URI`, `JWT_SECRET`, `OPENROUTER_API_KEY`, `CORS_ORIGINS`).
-6.  **Deploy Site**.
+You have successfully deployed the backend to: `https://futureforge01.netlify.app/`
+Ensure the following Environment Variables are set in your Netlify Site Configuration:
+*   `MONGODB_URI`
+*   `JWT_SECRET`
+*   `OPENROUTER_API_KEY`
+*   `CORS_ORIGINS` (Set to your Vercel Frontend URL or `*`)
 
 ---
 
@@ -44,13 +40,13 @@ You can deploy the backend to **Vercel** (recommended for unity) or **Netlify**.
 
 1.  Log in to [Vercel Dashboard](https://vercel.com/dashboard).
 2.  Click **"Add New..."** -> **"Project"**.
-3.  Import your `future_forge` repository (again).
+3.  Import your `future_forge` repository.
 4.  **Configure Project**:
     *   **Framework Preset**: **Next.js** (should be auto-detected).
-    *   **Root Directory**: Click "Edit" and select `frontend`.
+    *   **Root Directory**: **IMPORTANT:** Click "Edit" and select `frontend`.
     *   **Environment Variables**:
-        *   `BACKEND_URL`: The URL of your deployed backend (from Step 1), e.g., `https://future-forge-backend.vercel.app` (no trailing slash).
-        *   *Note: The frontend uses a rewrite rule, so requests to `/api/*` are automatically proxied to this URL.*
+        *   `BACKEND_URL`: `https://futureforge01.netlify.app` (No trailing slash).
+        *   *Note: This connects your frontend to your active Netlify backend.*
 5.  Click **"Deploy"**.
 
 ## ✅ Verification
