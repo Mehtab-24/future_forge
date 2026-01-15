@@ -26,6 +26,19 @@ const PORT = process.env.PORT || 5000;
     
     const server = http.createServer(app);
 
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        const newPort = PORT + 1;
+        logger.warn(`Port ${PORT} is busy, trying ${newPort}...`);
+        server.listen(newPort, () => {
+          logger.info(`Server running on http://localhost:${newPort} (env: ${process.env.NODE_ENV || 'development'})`);
+        });
+      } else {
+        logger.error('Server error:', err);
+        process.exit(1);
+      }
+    });
+
     server.listen(PORT, () => {
       logger.info(`Server running on http://localhost:${PORT} (env: ${process.env.NODE_ENV || 'development'})`);
     });

@@ -43,33 +43,63 @@ router.post('/', async (req, res, next) => { // Removed requireAuth middleware
 
     if (isMock(req)) {
       const mock = {
-        role_title: "Frontend Developer (Mock)",
-        success_probability: 85,
-        estimated_salary_range: { min: 80000, max: 120000 },
-        summary: "This path focuses on rapid acquisition of React and modern frontend tools. High success probability due to high demand.",
+        role_title: "Senior Frontend Engineer (Mock)",
+        success_probability: 92,
+        estimated_salary_range: { min: 95000, max: 145000 },
+        summary: "This path targets a high-velocity career trajectory in modern frontend engineering, focusing on scalable architecture, performance optimization, and leadership skills.",
         timeline: [
           { 
-            phase: "Week 1", 
-            duration: "1 week",
-            goals: ["Setup"], 
-            milestones: ["Scaffold"], 
-            projects: ["Personal Portfolio"],
-            risks: ["Time"], 
-            checkpoints: ["Repo ready"],
-            skills_developed: ["React", "CSS"]
+            phase: "Phase 1: Foundations & Architecture", 
+            duration: "Weeks 1-4",
+            goals: ["Master React Internal Architecture", "Advanced TypeScript Patterns"], 
+            milestones: ["Build Custom Hook Library", "Contribute to Open Source"], 
+            projects: ["SaaS Dashboard with Real-time Data"],
+            risks: ["Tutorial Hell", "Over-engineering simple solutions"], 
+            checkpoints: ["Deploy to Vercel with CI/CD", "100% Unit Test Coverage"],
+            skills_developed: ["React 18", "TypeScript", "Vite", "Jest"]
+          },
+          { 
+            phase: "Phase 2: Performance & Scale", 
+            duration: "Weeks 5-8",
+            goals: ["Web Vitals Optimization", "State Management Mastery"], 
+            milestones: ["Reduce Bundle Size by 40%", "Implement Server-Side Rendering"], 
+            projects: ["E-commerce Platform with Next.js"],
+            risks: ["Premature Optimization", "Complexity Creep"], 
+            checkpoints: ["Lighthouse Score > 95", "Implement Redis Caching"],
+            skills_developed: ["Next.js", "Redis", "GraphQL", "Performance Profiling"]
           }
         ],
-        skill_gaps: ["Testing"],
-        action_stack: [{ 
-          type: "learn", 
-          title: "React basics", 
-          description: "Docs & tutorials", 
-          priority: "high",
-          why: "Core requirement",
-          effort: "medium",
-          estimated_weeks: 1 
-        }],
-        rationale: "Starter path for demo"
+        skill_gaps: ["System Design", "Cloud Infrastructure (AWS/GCP)"],
+        action_stack: [
+          { 
+            type: "learn", 
+            title: "Advanced React Patterns", 
+            description: "Deep dive into Compound Components, Render Props, and Custom Hooks.", 
+            priority: "high",
+            why: "Essential for building maintainable enterprise-grade applications.",
+            effort: "high",
+            estimated_weeks: 2 
+          },
+          { 
+            type: "project", 
+            title: "Full-Stack MERN Application", 
+            description: "Build and deploy a production-ready social media clone.", 
+            priority: "medium",
+            why: "Demonstrates end-to-end capability to potential employers.",
+            effort: "high",
+            estimated_weeks: 4 
+          },
+          { 
+            type: "network", 
+            title: "Tech Conference Speaking", 
+            description: "Submit a CFP to a local meetup or conference.", 
+            priority: "low",
+            why: "Builds authority and personal brand in the industry.",
+            effort: "medium",
+            estimated_weeks: 1 
+          }
+        ],
+        rationale: "Optimized for maximum market value and long-term career growth."
       };
       if (streaming) {
         sseInit(res);
