@@ -56,7 +56,8 @@ router.post('/', async (req, res, next) => { // Removed requireAuth middleware
             milestones: ["Scaffold"], 
             projects: ["Component Library"],
             risks: ["Time"], 
-            checkpoints: ["Repo ready"] 
+            checkpoints: ["Repo ready"],
+            skills_developed: ["UI Design", "Figma"]
           }
         ],
         skill_gaps: ["Testing"],

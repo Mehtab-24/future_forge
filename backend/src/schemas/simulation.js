@@ -2,10 +2,13 @@ const { z } = require('zod');
 
 const timelineEntry = z.object({
   phase: z.string().min(1),
+  duration: z.string().min(1),
   goals: z.array(z.string().min(1)).min(1),
   milestones: z.array(z.string().min(1)).min(1),
+  projects: z.array(z.string().min(1)).min(1),
   risks: z.array(z.string().min(1)).min(1),
   checkpoints: z.array(z.string().min(1)).min(1),
+  skills_developed: z.array(z.string().min(1)).min(1),
 });
 
 const actionItem = z.object({
@@ -80,8 +83,10 @@ function variantSchemaTextForPrompt() {
       "phase": string,
       "goals": string[],
       "milestones": string[],
+      "projects": string[],
       "risks": string[],
-      "checkpoints": string[]
+      "checkpoints": string[],
+      "skills_developed": string[]
     }
   ],
   "skill_gaps": string[],

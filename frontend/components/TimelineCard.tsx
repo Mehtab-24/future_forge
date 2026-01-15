@@ -159,7 +159,7 @@ export default function TimelineCard({
             Success Milestones
           </h4>
           <div className="space-y-3">
-            {timeline.checkpoints.map((checkpoint, idx) => (
+            {timeline.checkpoints?.map((checkpoint, idx) => (
               <div
                 key={idx}
                 className="flex items-start space-x-3 p-3 glass-card bg-emerald-500/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition-all"
@@ -183,7 +183,7 @@ export default function TimelineCard({
           Skills Developed
         </h4>
         <div className="flex flex-wrap gap-2">
-          {timeline.skills_developed.map((skill, idx) => (
+          {timeline.skills_developed?.map((skill, idx) => (
             <span
               key={idx}
               className={`px-3 py-2 bg-${
