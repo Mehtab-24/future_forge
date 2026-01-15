@@ -1,49 +1,68 @@
-# Deployment Instructions
+# Future Forge Deployment Instructions
 
-This project is structured into two parts:
-- `frontend/`: Next.js application (Deploy to Vercel)
-- `backend/`: Node.js/Express application (Deploy to Netlify Functions)
+This guide provides step-by-step instructions for deploying both the Frontend (Next.js) and Backend (Express) of the Future Forge application.
 
-## 1. Backend Deployment (Netlify)
+## 🚀 1. Backend Deployment
 
-1.  Connect your repository to Netlify.
-2.  **Base Directory**: `backend`
-3.  **Build Command**: `npm install` (or leave empty if Netlify detects it automatically)
-4.  **Publish Directory**: `backend` (or leave empty/default)
+You can deploy the backend to **Vercel** (recommended for unity) or **Netlify**.
+
+### Option A: Deploy to Vercel (Recommended)
+
+1.  **Push your code** to GitHub.
+2.  Log in to [Vercel Dashboard](https://vercel.com/dashboard).
+3.  Click **"Add New..."** -> **"Project"**.
+4.  Import your `future_forge` repository.
+5.  **Configure Project**:
+    *   **Framework Preset**: Select **Other** (since the root is not a framework, but we are deploying the `backend` folder).
+    *   **Root Directory**: Click "Edit" and select `backend`.
+    *   **Environment Variables**: Add the following:
+        *   `MONGODB_URI`: Your MongoDB connection string (e.g., from MongoDB Atlas).
+        *   `JWT_SECRET`: A long, random string for security.
+        *   `OPENROUTER_API_KEY`: Your OpenRouter API key.
+        *   `CORS_ORIGINS`: Your frontend URL (e.g., `https://future-forge-frontend.vercel.app`). You can add `*` temporarily for testing.
+        *   `NODE_ENV`: `production`
+6.  Click **"Deploy"**.
+7.  **Copy the assigned Domain** (e.g., `https://future-forge-backend.vercel.app`). You will need this for the frontend.
+
+### Option B: Deploy to Netlify
+
+1.  Log in to [Netlify](https://app.netlify.com).
+2.  Click **"Add new site"** -> **"Import an existing project"**.
+3.  Select **GitHub** and choose your `future_forge` repository.
+4.  **Configure Site**:
+    *   **Base directory**: `backend`
+    *   **Build command**: `npm install` (Netlify automatically detects `netlify.toml` but good to confirm).
+    *   **Publish directory**: `public` (or leave default if `netlify.toml` handles it).
 5.  **Environment Variables**:
-    -   `MONGODB_URI`: Your MongoDB connection string.
-    -   `JWT_SECRET`: A secret string for authentication.
-    -   `NODE_ENV`: `production`
+    *   Go to **Site configuration** -> **Environment variables**.
+    *   Add the same variables as above (`MONGODB_URI`, `JWT_SECRET`, `OPENROUTER_API_KEY`, `CORS_ORIGINS`).
+6.  **Deploy Site**.
 
-Netlify will automatically detect the `netlify.toml` file in the `backend` directory and configure the functions.
+---
 
-## 2. Frontend Deployment (Vercel)
+## 🎨 2. Frontend Deployment (Vercel)
 
-1.  Connect your repository to Vercel.
-2.  **Root Directory**: `frontend` (Click "Edit" next to "Root Directory" and select `frontend`).
-3.  **Framework Preset**: Next.js (should be detected automatically).
-4.  **Environment Variables**:
-    -   `NEXT_PUBLIC_API_URL`: The URL of your deployed Netlify backend.
-        -   Format: `https://your-site-name.netlify.app/api/v1` (Note: Append `/api/v1` because the backend routes are prefixed with it, and the Netlify redirect handles `/api/*`).
+1.  Log in to [Vercel Dashboard](https://vercel.com/dashboard).
+2.  Click **"Add New..."** -> **"Project"**.
+3.  Import your `future_forge` repository (again).
+4.  **Configure Project**:
+    *   **Framework Preset**: **Next.js** (should be auto-detected).
+    *   **Root Directory**: Click "Edit" and select `frontend`.
+    *   **Environment Variables**:
+        *   `BACKEND_URL`: The URL of your deployed backend (from Step 1), e.g., `https://future-forge-backend.vercel.app` (no trailing slash).
+        *   *Note: The frontend uses a rewrite rule, so requests to `/api/*` are automatically proxied to this URL.*
+5.  Click **"Deploy"**.
 
-## Local Development
+## ✅ Verification
 
-To run locally:
+1.  Open your deployed Frontend URL.
+2.  Try to **Log In** or **Register**.
+    *   If successful, the Frontend is correctly talking to the Backend, and the Backend is correctly talking to MongoDB.
+3.  Try running a **Simulation**.
+    *   If successful, the Backend is correctly talking to OpenRouter AI.
 
-1.  **Backend**:
-    ```bash
-    cd backend
-    npm install
-    npm run dev
-    ```
-    Runs on `http://localhost:5000`.
+## 🛠 Troubleshooting
 
-2.  **Frontend**:
-    ```bash
-    cd frontend
-    npm install
-    npm run dev
-    ```
-    Runs on `http://localhost:3000`.
-    
-    The frontend is configured to proxy `/api` requests to `http://localhost:5000` locally.
+*   **CORS Errors**: Check your Backend's `CORS_ORIGINS` variable. It must exactly match your Frontend's URL (e.g., `https://future-forge-frontend.vercel.app`).
+*   **Database Connection**: Check the `MONGODB_URI` in your Backend environment variables. Ensure IP Access List in MongoDB Atlas allows access from everywhere (`0.0.0.0/0`) since serverless IP addresses change.
+*   **AI Errors**: Check `OPENROUTER_API_KEY`.
