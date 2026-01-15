@@ -1,0 +1,13 @@
+[build]
+  functions = "functions"
+  publish = "public" # Optional: if you have static files to serve
+
+[dev]
+  command = "npm start"
+  port = 5000
+  targetPort = 5000
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200

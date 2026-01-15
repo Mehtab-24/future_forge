@@ -34,6 +34,7 @@ class ApiService {
 
       return { data };
     } catch (error) {
+      console.error('API Request Error:', error);
       return { error: 'Network error occurred', message: 'Failed to connect to server' };
     }
   }

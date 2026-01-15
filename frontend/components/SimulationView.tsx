@@ -391,9 +391,9 @@ export default function SimulationView({ intakeData }: SimulationViewProps) {
                             <DollarSign className="w-5 h-5 text-blue-400 mr-2" />
                             <div className="text-lg font-black text-blue-400">
                               $
-                              {baseline.estimated_salary_range.min.toLocaleString()}
+                              {baseline.estimated_salary_range?.min?.toLocaleString() ?? '0'}
                               -$
-                              {baseline.estimated_salary_range.max.toLocaleString()}
+                              {baseline.estimated_salary_range?.max?.toLocaleString() ?? '0'}
                             </div>
                           </div>
                           <div className="text-xs text-slate-400 font-medium">

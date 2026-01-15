@@ -109,17 +109,25 @@ export default function TimelineCard({
             Key Projects
           </h4>
           <div className="space-y-3">
-            {timeline.projects.map((project, idx) => (
+            {timeline.projects?.map((project, idx) => (
               <div
                 key={idx}
-                className={`flex items-start space-x-3 p-3 glass-card bg-green-500/5 border border-green-500/20 hover:bg-green-500/10 transition-all`}
+                className={`flex items-start space-x-3 p-3 glass-card bg-${
+                  isVariant ? "purple" : "cyan"
+                }-500/5 border border-${
+                  isVariant ? "purple" : "cyan"
+                }-500/20 hover:bg-${
+                  isVariant ? "purple" : "cyan"
+                }-500/10 transition-all`}
               >
-                <CheckCircle className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                <Briefcase
+                  className={`w-4 h-4 text-${accentColor} mt-0.5 flex-shrink-0`}
+                />
                 <span className="text-slate-300 text-sm leading-relaxed">
                   {project}
                 </span>
               </div>
-            ))}
+            )) ?? <div className="text-slate-500 text-sm italic">No projects defined</div>}
           </div>
         </div>
 
