@@ -59,6 +59,22 @@ Ensure the following Environment Variables are set in your Netlify Site Configur
 
 ## 🛠 Troubleshooting
 
+### 🔴 Fix: Vercel "404" or Build Errors (Frontend)
+If your Vercel deployment fails or shows a 404 page:
+1.  **Check Root Directory**:
+    *   Go to your Vercel Project Dashboard.
+    *   Click **Settings** (top tab) -> **General**.
+    *   Find **Root Directory**.
+    *   It currently probably says `/` (Project Root).
+    *   Click **Edit** and change it to `frontend`.
+    *   Click **Save**.
+2.  **Redeploy**:
+    *   Go to **Deployments** (top tab).
+    *   Click the **three dots (...)** next to the failed/latest deployment.
+    *   Click **Redeploy**.
+    *   **IMPORTANT:** Ensure "Use existing build cache" is **unchecked** if possible, or just hit Redeploy.
+
+### 🟡 Fix: Backend Connection Issues
 *   **CORS Errors**: Check your Backend's `CORS_ORIGINS` variable. It must exactly match your Frontend's URL (e.g., `https://future-forge-frontend.vercel.app`).
 *   **Database Connection**: Check the `MONGODB_URI` in your Backend environment variables. Ensure IP Access List in MongoDB Atlas allows access from everywhere (`0.0.0.0/0`) since serverless IP addresses change.
 *   **AI Errors**: Check `OPENROUTER_API_KEY`.
