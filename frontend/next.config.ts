@@ -3,10 +3,8 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   /* config options here */
   outputFileTracingRoot: undefined,
-  experimental: {
-    // Disable problematic features
-    turbo: undefined,
-  },
+  // Configure Turbopack to work with webpack config
+  turbopack: {},
   // Fix for multiple lock files
   webpack: (config) => {
     // Remove any vite-related configurations
@@ -15,9 +13,6 @@ const nextConfig: NextConfig = {
       '@vite/client': false,
     };
     return config;
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
